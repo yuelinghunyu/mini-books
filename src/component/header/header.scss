@@ -1,0 +1,19 @@
+.header-top{
+    height: 1.2rem;
+    border-bottom: 1px solid #ddd;
+    overflow-y: hidden;
+    overflow-x: auto;
+    ul{
+        display: inline;
+        white-space: nowrap;
+        li{
+            padding: 0.42rem 0.33rem;
+            display: inline-block;
+            font-size: 26px;
+        }
+    }
+}
+.active{
+    color: #007fff;
+    font-weight: bold;
+}

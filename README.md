@@ -1,1 +1,1 @@
-# mini-books
+# mso-react-cli

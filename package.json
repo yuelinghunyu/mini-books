@@ -1,0 +1,65 @@
+{
+  "name": "mso-react-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node ./build/init.js",
+    "start": "webpack-dev-server --host 0.0.0.0 --config ./build/webpack.dev.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuelinghunyu/mso-react-cli.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuelinghunyu/mso-react-cli/issues"
+  },
+  "homepage": "https://github.com/yuelinghunyu/mso-react-cli#readme",
+  "devDependencies": {
+    "autoprefixer": "^9.1.5",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "chalk": "^2.4.1",
+    "css-loader": "^1.0.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^2.0.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.2",
+    "mso-flex": "^1.0.2",
+    "node-sass": "^4.9.3",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "ora": "^3.0.0",
+    "postcss-loader": "^3.0.0",
+    "postcss-plugin-px2rem": "^0.7.0",
+    "postcss-pxtorem": "^4.0.1",
+    "px-rem": "^1.1.9",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "rimraf": "^2.6.2",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.0",
+    "url-loader": "^1.1.1",
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.7",
+    "webpack-merge": "^4.1.4",
+    "webpack-px2rem-loader": "0.0.4"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {},
+      "postcss-pxtorem": {
+        "rootValue": 75,
+        "proList": []
+      }
+    }
+  }
+}
