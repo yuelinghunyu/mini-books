@@ -43,6 +43,7 @@
     "px-rem": "^1.1.9",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
+    "react-pullload": "^1.1.0",
     "rimraf": "^2.6.2",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
