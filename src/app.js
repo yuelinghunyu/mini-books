@@ -1,18 +1,18 @@
 import "./app.scss";
 import React, { Component } from 'react';
-import Header from "./component/header/header";
-import Content from "./component/content/content";
+import RouterIndex from "./router/index";
 import Footer from "./component/footer/footer";
-import PullLoad from "./component/pullload/pullload";
+import {HashRouter as Router} from 'react-router-dom';
 
 class App extends Component{
     render(){
         return(
-            <div className='app-container'>
-               <Header></Header>
-               <PullLoad></PullLoad>
-               <Footer></Footer>
-            </div>
+            <Router>
+                <div className='app-container'>
+                    <RouterIndex></RouterIndex>
+                    <Footer></Footer>
+                </div>
+            </Router>
         )
     }
 }

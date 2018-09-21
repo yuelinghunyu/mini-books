@@ -28,6 +28,10 @@ module.exports={
                 ]
             },
             {
+                test:/\.(ttf|svg|woff|eot|woff2)$/,
+                use:["file-loader"]
+            },
+            {
                 test:/\.css$/,
                 exclude:/(node_modules)/,
                 use:ExtractTextPlugin.extract({

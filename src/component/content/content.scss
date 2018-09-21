@@ -2,5 +2,6 @@
 
 .content-container{
     @extend .flex-1;
-    overflow: auto;
+    @extend .flex-o;
+    @extend .flex-direction-o;
 }

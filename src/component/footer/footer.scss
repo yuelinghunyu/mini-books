@@ -8,24 +8,14 @@
         @extend .justify-content-s;
         @extend .align-items-c;
         height: 100%;
+        @include boxShadow(0px,-5px,10px,#ddd);
         li{
             display: inline-block;
-            .tab-img{
+            .tab-i{
                 display: block;
                 width: 0.64rem;
                 height: 0.64rem;
-            }
-            .tab-img[data-index="0"]{
-                background: url("../../../static/img/book.png") no-repeat center;
-                background-size: cover;
-            }
-            .tab-img[data-index="1"]{
-                background: url("../../../static/img/shelf.png") no-repeat center;
-                background-size: cover;
-            }
-            .tab-img[data-index="2"]{
-                background: url("../../../static/img/my.png") no-repeat center;
-                background-size: cover;
+                font-size: 0.64rem;
             }
             .tab-text{
                 display: block;

@@ -1,0 +1,5 @@
+@import '../../../static/common/base.scss';
+.saled-container{
+    @extend .flex-1;
+    overflow: auto;
+}

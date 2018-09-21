@@ -1,8 +1,10 @@
+@import '../../../static/common/base.scss';
 .header-top{
-    height: 1.6rem;
+    height: 1.2rem;
     border-bottom: 1px solid #ddd;
     overflow-y: hidden;
     overflow-x: auto;
+    @include boxShadow(0px,5px,10px,#ddd);
     ul{
         display: inline;
         white-space: nowrap;

@@ -75,9 +75,11 @@ class Book extends Component{
             </li>
         );
         return(
-            <ul>
-                {listItem}
-            </ul>
+           <div className="book-container">
+                <ul>
+                    {listItem}
+                </ul>
+           </div>
         )
     }
 }

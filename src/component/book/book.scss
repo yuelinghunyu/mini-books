@@ -1,53 +1,57 @@
 @import '../../../static/common/base.scss';
-ul{
-    @extend .flex-o;
-    @extend .flex-direction-o;
-    .book-item{
-        height: 2.33rem;
-        padding: 0.44rem 0;
-        border-bottom: 1px solid #ddd;
+.book-container{
+    @extend .flex-1;
+    overflow: auto;
+    ul{
         @extend .flex-o;
-        @extend .flex-direction-r;
-        @extend .align-items-c;
-        img{
-            display: block;
-            border: none;
-            width: 1.387rem;
-            height: 1.92rem;
-            margin: 0 0.373rem;
-            @include boxShadow(0px,0px,20px,$color:#d3e1fe)
-        }
-        .book-des{
-            @extend .flex-1;
+        @extend .flex-direction-o;
+        .book-item{
+            height: 2.33rem;
+            padding: 0.44rem 0;
+            border-bottom: 1px solid #ddd;
             @extend .flex-o;
-            @extend .flex-direction-o;
-            @extend .justify-content-s;
-            height: 95%;
-            h3{
-                font-size: 34px;
-                font-weight: bold;
-                color: #000;
-                line-height: 40px;
+            @extend .flex-direction-r;
+            @extend .align-items-c;
+            img{
+                display: block;
+                border: none;
+                width: 1.387rem;
+                height: 1.92rem;
+                margin: 0 0.373rem;
+                @include boxShadow(0px,0px,20px,$color:#d3e1fe)
             }
-            .book-author{
-                color: #000;
-                font-size: 28px;
+            .book-des{
+                @extend .flex-1;
+                @extend .flex-o;
+                @extend .flex-direction-o;
+                @extend .justify-content-s;
+                height: 95%;
+                h3{
+                    font-size: 34px;
+                    font-weight: bold;
+                    color: #000;
+                    line-height: 40px;
+                }
+                .book-author{
+                    color: #000;
+                    font-size: 28px;
+                }
+                .total-calc{
+                    color: #aaa;
+                    font-size: 26px;
+                }
             }
-            .total-calc{
-                color: #aaa;
+            .book-price{
+                width: 2.13rem;
+                height: 0.8rem;
+                background-color: #f0f7ff;
                 font-size: 26px;
+                line-height: 0.8rem;
+                text-align: center;
+                color: #0077ff;
+                margin: 0 0.373rem;
+                @include radius(0.4rem);
             }
-        }
-        .book-price{
-            width: 2.13rem;
-            height: 0.8rem;
-            background-color: #f0f7ff;
-            font-size: 26px;
-            line-height: 0.8rem;
-            text-align: center;
-            color: #0077ff;
-            margin: 0 0.373rem;
-            @include radius(0.4rem);
         }
     }
 }
