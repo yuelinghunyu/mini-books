@@ -11,6 +11,7 @@
         @include boxShadow(0px,-5px,10px,#ddd);
         li{
             display: inline-block;
+            padding: 0 1rem;
             .tab-i{
                 display: block;
                 width: 0.64rem;
@@ -20,6 +21,8 @@
             .tab-text{
                 display: block;
                 line-height: 0.5rem;
+                font-size: 22px;
+                text-align: center;
             }
         }
     }

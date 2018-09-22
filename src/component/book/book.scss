@@ -2,11 +2,12 @@
 .book-container{
     @extend .flex-1;
     overflow: auto;
+    background-color: #fff;
     ul{
         @extend .flex-o;
         @extend .flex-direction-o;
         .book-item{
-            height: 2.33rem;
+            height: 1.9rem;
             padding: 0.44rem 0;
             border-bottom: 1px solid #ddd;
             @extend .flex-o;
@@ -52,6 +53,9 @@
                 margin: 0 0.373rem;
                 @include radius(0.4rem);
             }
+        }
+        .book-item:last-child{
+            @include boxShadow(0px,5px,20px,$color:#d3e1fe)
         }
     }
 }

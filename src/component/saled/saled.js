@@ -1,11 +1,12 @@
 import React,{Component} from 'react';
 import './saled.scss';
+import SaledBooks from "../saledBooks/saledBooks"
 
 class Saled extends Component{
     render(){
         return(
             <div className="saled-container">
-                这是购买过的页面
+                <SaledBooks></SaledBooks>
             </div>
         )
     }

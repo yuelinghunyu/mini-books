@@ -1,8 +1,6 @@
 @import '../../../static/common/base.scss';
-
-.content-container{
+.brochure-container{
     @extend .flex-1;
-    @extend .flex-o;
-    @extend .flex-direction-o;
+    overflow: auto;
     background-color: #f4f5f5;
 }

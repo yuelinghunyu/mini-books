@@ -1,0 +1,48 @@
+@import '../../../static/common/base.scss';
+.bookDes-container{
+    padding: 0.4rem;
+    background-color: #fff;
+    @extend .flex-o;
+    @extend .flex-direction-r;
+    @extend .align-items-c;
+    .des-logo{
+        display: block;
+        border: none;
+        width: 2.267rem;
+        height: 3.173rem;
+    }
+    .des-book-description{
+        @extend .flex-1;
+        padding-left:0.6rem; 
+        h3{
+            font-size: 36px;
+            color: #333;
+            line-height: 0.667rem;
+            margin-bottom: 0.133rem;
+        }
+        .book-desciption-content{
+            line-height: 0.533rem;
+            color: #777;
+            font-size: 26px;
+            @include white(auto,2);
+            margin-bottom: 0.32rem;
+        }
+        .des-user-container{
+            @extend .flex-o;
+            @extend .flex-direction-r;
+            @extend .align-items-c;
+            .des-user-logo{
+                display: block;
+                width:0.693rem;
+                height: 0.693rem;
+                border: none;
+                @include radius(50%);
+            }
+            span{
+                font-size: 26px;
+                color: #000;
+                margin-left: 0.24rem;
+            }
+        }
+    }
+}

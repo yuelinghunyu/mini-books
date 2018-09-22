@@ -155,3 +155,12 @@ $font-default-size:18px;
     background: linear-gradient($direction,$startColor,$endColor);
     filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=$startColor,endcolorstr=$endColor,gradientType=1);
 }
+//多行省略号;
+@mixin white($width:auto,$row:2){
+    width:$width;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: $row;
+    -webkit-box-orient: vertical;
+}

@@ -6,6 +6,9 @@ import Content from '../component/content/content';
 import Saled from '../component/saled/saled';
 import Personal from '../component/personal/personal';
 
+//魂典组件;
+import Brochure from "../component/brochure/brochure";
+
 class RouterIndex extends Component{
     render(){
         return(
@@ -14,6 +17,7 @@ class RouterIndex extends Component{
                 <Route path="/home" component={Content} />
                 <Route path="/saled" component={Saled} />
                 <Route path="/personal" component={Personal} />
+                <Route path="/brochure/:id" component={Brochure}/>
             </Switch>
         )
     }

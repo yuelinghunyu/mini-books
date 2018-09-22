@@ -5,6 +5,7 @@
     overflow-y: hidden;
     overflow-x: auto;
     @include boxShadow(0px,5px,10px,#ddd);
+    background-color: #fff;
     ul{
         display: inline;
         white-space: nowrap;

@@ -2,4 +2,53 @@
 .personal-container{
     @extend .flex-1;
     overflow: auto;
+    background-color: #f4f5f5;
+    font-size: 30px;
+    .username-container{
+        @extend .flex-o;
+        @extend .flex-direction-r;
+        @extend .align-items-c;
+        @extend .justify-content-b;
+        background-color: #fff;
+        height: 2.133rem;
+        margin-top:0.4rem;
+        margin-bottom:0.4rem;
+        padding: 0rem 0.65rem;
+        img{
+            display: block;
+            border: none;
+            width: 1.4667rem;
+            height: 1.4667rem;
+            @include radius(50%);
+        }
+        .username{
+            @extend .flex-1;
+            padding-left: 0.5rem;
+        }
+        .redirect{
+            width: 1rem;
+            height: 0.4rem;
+            text-align: right;
+            font-size: 0.4rem;
+        }
+    }
+    .personal-div{
+        height: 1.2rem;
+        background-color: #fff;
+        @extend .flex-o;
+        @extend .flex-direction-r;
+        @extend .align-items-c;
+        padding: 0rem 0.65rem;
+    }
+    .saled-btn{
+        @extend .justify-content-b;
+        border-top:1px solid #dcdcdc;
+        margin-bottom:0.4rem;
+        span:nth-child(2){
+            color: #999;
+        }
+    }
+    .ancel-btn{
+        @extend .justify-content-c;
+    }
 }

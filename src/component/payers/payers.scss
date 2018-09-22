@@ -1,0 +1,42 @@
+@import '../../../static/common/base.scss';
+.payers-container{
+    @extend .flex-o;
+    @extend .flex-direction-r;
+    @extend .align-items-c;
+    @extend .justify-content-b;
+    border-top:1px solid #ecf0f3;
+    border-bottom: 1px solid #ecf0f3;
+    background-color: #fff;
+    padding: 0.333rem 0.533rem;
+    .payers-count{
+        @extend .flex-o;
+        @extend .flex-direction-r;
+        @extend .align-items-c;
+        color: #666;
+        .payers-logo{
+            width: 0.533rem;
+            height: 0.533rem;
+            text-align: center;
+            line-height: 0.533rem;
+            font-size: 0.533rem;
+            margin-right: 0.2rem;
+        }
+        .payers-num{
+            font-size: 30px;
+        }
+    }
+    .payers-name{
+        @extend .flex-o;
+        @extend .flex-direction-r;
+        @extend .align-items-c;
+        overflow: hidden;
+        .payers-user-logo{
+            display: block;
+            width: 0.64rem;
+            height: 0.64rem;
+            border: none;
+            @include radius(50%);
+            margin: 0 0.267rem;
+        }
+    }
+}
