@@ -2,7 +2,10 @@ import React,{Component} from "react";
 import "./brochure.scss";
 import BookDes from "../bookDes/bookDes";
 import Payers from "../payers/payers";
+import Operate from "../operate/operate";
+import IntroSwiper from "../introSwiper/introSwiper";
 
+//单个典籍的入口介绍页；
 class Brochure extends Component{
     constructor(props){
         super(props)
@@ -14,8 +17,12 @@ class Brochure extends Component{
     render(){
         return(
             <div className="brochure-container">
-                <BookDes></BookDes>
-                <Payers></Payers>
+                <div>
+                    <BookDes></BookDes>
+                    <Payers></Payers>
+                    <Operate></Operate>
+                    <IntroSwiper></IntroSwiper>
+                </div>
             </div>
         )
     }

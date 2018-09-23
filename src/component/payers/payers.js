@@ -19,7 +19,7 @@ class Payers extends Component{
     }
     render(){
         const totalList = this.state.userList;
-        const list = totalList.slice(0,4).map((user,index)=>
+        const list = totalList.slice(0,5).map((user,index)=>
             <li className="payers-user-item" id={user.userId} key={index}>
                 <img className="payers-user-logo" alt="logo" src={user.logo} />
             </li>

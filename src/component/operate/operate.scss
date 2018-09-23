@@ -1,0 +1,38 @@
+@import '../../../static/common/base.scss';
+.operate-container{
+    padding: 0.4rem;
+    background-color: #fff;
+    @extend .flex-o;
+    @extend .flex-direction-r;
+    @extend .align-items-c;
+    @extend .justify-content-c;
+    font-size:28px;
+    border-bottom: 1px solid #e5e5e5;
+    .go-on,.pay-for-price{
+        color: #fff;
+        background-color: #007fff;
+        @include radius(6px);
+        height: 1.0667rem;
+        line-height: 1.0667rem;
+        text-align: center;
+    }
+    .go-on{
+        padding: 0 3.33rem;
+    }
+    .pay-for-price{
+        padding: 0 2.33rem;
+    }
+    .try-read{
+        padding: 0 0.7rem;
+        height: 1.05rem;
+        line-height: 1.05rem;
+        border: 1px solid #aeb6c0;
+        box-sizing:border-box;
+        -moz-box-sizing:border-box; /* Firefox */
+        -webkit-box-sizing:border-box; /* Safari */
+        @include radius(6px);
+        color: #777;
+        text-align: center;
+        margin-right: 0.253rem;
+    }
+}
