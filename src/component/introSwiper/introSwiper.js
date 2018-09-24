@@ -57,21 +57,29 @@ class IntroSwiper extends Component{
                this.transitionEndCallback(index,elem);
             }),
         };
-        let pane1 = this.state.bookChapterList.map((chapter,index)=>
-            <li className="chapter-item" key={index}>
-                <span className="flag-qid">{index + 1}</span>
-                <div className="flag-qid-right">
-                    <div>
-                        <span className="flag-qid-title">{chapter.title}</span>
-                        <p className="chapter-status">
-                            <span>时长:{chapter.time}</span>
-                            <span>{chapter.studyNum}次学习</span>
-                        </p>
-                    </div>
-                    <i></i>
-                </div>
-            </li>
-        );
+        let pane1 = [];
+        this.state.bookChapterList.map((chapter,index)=>{
+            let i = null;
+            if((index === 0 || index === this.state.bookChapterList.length-1)&& !this.state.isPay){
+                i = <i className="chapter-is-pay try">试读</i>
+            }else if(!this.state.isPay){
+                i = <i className="chapter-is-pay icon iconfont icon-suo"></i>
+            }
+            let li = <li className="chapter-item" key={index}>
+                        <span className="flag-qid">{index + 1}</span>
+                        <div className="flag-qid-right">
+                            <div>
+                                <span className="flag-qid-title">{chapter.title}</span>
+                                <p className="chapter-status">
+                                    <span>时长:{chapter.time}</span>
+                                    <span>{chapter.studyNum}次学习</span>
+                                </p>
+                            </div>
+                            {i}
+                        </div>
+                    </li>
+            pane1.push(li);
+        });
         return(
             <div className="intro-chapter-container">
                 <div className="intro-chapter-tab">
@@ -82,7 +90,7 @@ class IntroSwiper extends Component{
                 <div className="intro-chapter-swiper">
                     <ReactSwipe ref={reactSwipe => this.reactSwipe = reactSwipe} className="carousel" swipeOptions={option}>
                         <div className="box">
-                            <h3 className= "chapter-title">小典内容</h3>
+                            {/* <h3 className= "chapter-title">小典内容</h3> */}
                             <div className="chapter-scroll">
                                 <ul >
                                     {pane1}
@@ -100,10 +108,10 @@ class IntroSwiper extends Component{
        const bookDesH = document.getElementsByClassName("bookDes-container")[0].clientHeight;
        const payersH = document.getElementsByClassName("payers-container")[0].clientHeight;
        const operateH = document.getElementsByClassName("operate-container")[0].clientHeight;
-       const carouselH = totalH-bookDesH-payersH-operateH-160;
+       const carouselH = totalH-bookDesH-payersH-operateH-150;
        document.getElementsByClassName("carousel")[0].style.height = (carouselH/75).toFixed(3)+"rem";
-       const chapterH = carouselH-document.getElementsByClassName("chapter-title")[0].clientHeight;
-       document.getElementsByClassName("chapter-scroll")[0].style.height = (chapterH/75).toFixed(3)+"rem";
+    //    const chapterH = carouselH-document.getElementsByClassName("chapter-title")[0].clientHeight;
+       document.getElementsByClassName("chapter-scroll")[0].style.height = (carouselH/75).toFixed(3)+"rem";
     }
 }
 

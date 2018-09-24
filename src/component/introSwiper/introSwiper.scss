@@ -38,15 +38,7 @@
     }
     .intro-chapter-swiper{
         border-bottom:1px solid #ddd; 
-        .chapter-title{
-            width: 80%;
-            margin: 0 auto;
-            line-height: 1.573rem;
-            text-align: center;
-            font-size: 36px;
-            color: #333;
-            border-bottom:1px solid #ddd; 
-        }
+
        .chapter-scroll{
            overflow-y: auto;
            .chapter-item{
@@ -62,8 +54,13 @@
                     margin-right: 0.2267rem;
                 }
                 .flag-qid-right{
+                    @extend .flex-1;
                     border-bottom:1px solid #ddd; 
                     padding: 0.2667rem 0px;
+                    @extend .flex-o;
+                    @extend .flex-direction-r;
+                    @extend .align-items-c;
+                    @extend .justify-content-b;
                     .flag-qid-title{
                         line-height: 0.6rem;
                         font-size: 30px;
@@ -75,6 +72,18 @@
                         span{
                             margin-right: 0.4rem;
                         }
+                    }
+                    .chapter-is-pay{
+                        width: 1.2rem;
+                        height: 0.533rem;
+                        line-height: 0.533rem;
+                        text-align: center;
+                        font-size: 26px;
+                    }
+                    .try{
+                        border: 1px solid #ff7600;
+                        color: #ff7600;
+                        @include radius(4px);
                     }
                 }
            }

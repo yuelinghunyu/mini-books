@@ -8,24 +8,24 @@
     .des-logo{
         display: block;
         border: none;
-        width: 2.267rem;
-        height: 3.173rem;
+        width: 1.73rem;
+        height: 2.53rem;
     }
     .des-book-description{
         @extend .flex-1;
         padding-left:0.6rem; 
         h3{
-            font-size: 36px;
+            font-size: 34px;
             color: #333;
-            line-height: 0.667rem;
-            margin-bottom: 0.133rem;
+            line-height: 0.5rem;
+            margin-bottom: 0.1rem;
         }
         .book-desciption-content{
             line-height: 0.533rem;
             color: #777;
             font-size: 26px;
             @include white(auto,2);
-            margin-bottom: 0.32rem;
+            margin-bottom: 0.2rem;
         }
         .des-user-container{
             @extend .flex-o;
