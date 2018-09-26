@@ -1,0 +1,36 @@
+@import '../../../static/common/base.scss';
+.chapter-container{
+    width: 100%;
+    height: 100%;
+    @extend .flex-o;
+    @extend .flex-direction-o;
+    .chapter-content-container{
+        @extend .flex-1;
+        position: relative;
+        .chapter-scroll-container{
+            height: 100%;
+            overflow: hidden;
+            overflow-y: auto;
+        }
+    }
+    .chapter-content-footer{
+        width: 100%;
+        height: 1.32rem;
+        border-top:1px solid #ddd;
+        @extend .flex-o;
+        @extend .flex-direction-r;
+        @extend .justify-content-b;
+        i{
+            font-size: 0.5rem;
+            width: 20%;
+            text-align: center;
+            line-height: 1.32rem;
+        }
+        i:nth-child(2){
+            color: #007fff;
+        }
+        .active{
+            color: #007fff;
+        }
+    }
+}

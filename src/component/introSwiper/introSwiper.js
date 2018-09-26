@@ -1,10 +1,15 @@
 import React,{Component} from "react";
 import ReactSwipe from 'react-swipe'
 import "./introSwiper.scss";
+import PropTypes from "prop-types";
+import emitter from "../../config/events"
 
 //此组件有目录和介绍组成;
 
 class IntroSwiper extends Component{
+    static contextTypes = {
+        router:PropTypes.object.isRequired
+    }
     constructor(props){
         super(props)
         this.state = {
@@ -49,6 +54,12 @@ class IntroSwiper extends Component{
         console.log(this);
         this.reactSwipe.prev();
     }
+    redirectChapter(id,ev){
+        ev.preventDefault();
+        emitter.emit('hideFooter',false);
+        const path = "/chapter/"+id+"/"+false;
+        this.context.router.history.push(path);
+    }
     render(){
         let option = {
             speed: 400,
@@ -65,7 +76,12 @@ class IntroSwiper extends Component{
             }else if(!this.state.isPay){
                 i = <i className="chapter-is-pay icon iconfont icon-suo"></i>
             }
-            let li = <li className="chapter-item" key={index}>
+            let li = <li 
+                        className="chapter-item" 
+                        key={index} 
+                        data-id={chapter.id} 
+                        onClick={(ev)=>this.redirectChapter(chapter.id,ev)}
+                    >
                         <span className="flag-qid">{index + 1}</span>
                         <div className="flag-qid-right">
                             <div>
@@ -90,7 +106,6 @@ class IntroSwiper extends Component{
                 <div className="intro-chapter-swiper">
                     <ReactSwipe ref={reactSwipe => this.reactSwipe = reactSwipe} className="carousel" swipeOptions={option}>
                         <div className="box">
-                            {/* <h3 className= "chapter-title">小典内容</h3> */}
                             <div className="chapter-scroll">
                                 <ul >
                                     {pane1}

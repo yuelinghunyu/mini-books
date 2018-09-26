@@ -10,7 +10,8 @@ class Footer extends Component{
         super(props)
         this.state = {
             tabList:['典集','已购','我的'],
-            index:0
+            index:0,
+            hideFlag:true,
         }
         this.tabEvent = this.tabEvent.bind(this);
     }
