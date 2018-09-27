@@ -1,8 +1,13 @@
 import React,{Component} from 'react';
 import ReactSwipe from 'react-swipe'
+import PropTypes from "prop-types";
 import "./chapter.scss";
+import emitter from "../../config/events"
 
 class Chapter extends Component{
+    static contextTypes = {
+        router:PropTypes.object.isRequired
+    }
     constructor(){
         super()
         this.state = {
@@ -16,11 +21,29 @@ class Chapter extends Component{
                 {id:"7",content:"时刻保持一颗童心。童心之所以纯真，就因为简单，而简单是快乐之源，想让自己远离忧伤，就让自己不时保有一颗童心。不要太多的压抑，不要太多的思考，简单就好。"}
             ]
         }
+        this.next = this.next.bind(this);
+        this.prev = this.prev.bind(this);
+        this.backIntro = this.backIntro.bind(this);
+    }
+    next(ev) {
+        this.reactSwipe.next();
+    }
+    
+    prev(ev) {
+        this.reactSwipe.prev();
+    }
+    backIntro(ev){
+        ev.preventDefault();
+        emitter.emit('hideFooter',true);
+        const id = this.context.router.route.match.params.id;
+        const path = "/brochure/"+id;
+        this.context.router.history.push(path);
     }
     render(){
         let option = {
             speed: 400,
             continuous: false,
+            disableScroll: true,
             transitionEnd: ((index, elem)=>{
               
             }),
@@ -38,9 +61,9 @@ class Chapter extends Component{
                     {divList}
                 </ReactSwipe>
                 <div className="chapter-content-footer">
-                    <i className="icon iconfont icon-left"></i>
-                    <i className="icon iconfont icon-menu"></i>
-                    <i className="icon iconfont icon-right"></i>
+                    <i className="icon iconfont icon-left" onClick={this.prev}></i>
+                    <i className="icon iconfont icon-menu" onClick={this.backIntro}></i>
+                    <i className="icon iconfont icon-right" onClick={this.next}></i>
                 </div>
             </div>
         )

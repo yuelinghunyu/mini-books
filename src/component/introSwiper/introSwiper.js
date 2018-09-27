@@ -2,7 +2,8 @@ import React,{Component} from "react";
 import ReactSwipe from 'react-swipe'
 import "./introSwiper.scss";
 import PropTypes from "prop-types";
-import emitter from "../../config/events"
+import emitter from "../../config/events";
+import marked from "marked";
 
 //此组件有目录和介绍组成;
 
@@ -112,7 +113,7 @@ class IntroSwiper extends Component{
                                 </ul>
                             </div>
                         </div>
-                        <div>PANE 2</div>
+                        <div className="intro-description"></div>
                     </ReactSwipe>
                 </div>
             </div>
@@ -125,8 +126,9 @@ class IntroSwiper extends Component{
        const operateH = document.getElementsByClassName("operate-container")[0].clientHeight;
        const carouselH = totalH-bookDesH-payersH-operateH-150;
        document.getElementsByClassName("carousel")[0].style.height = (carouselH/75).toFixed(3)+"rem";
-    //    const chapterH = carouselH-document.getElementsByClassName("chapter-title")[0].clientHeight;
        document.getElementsByClassName("chapter-scroll")[0].style.height = (carouselH/75).toFixed(3)+"rem";
+
+       document.getElementsByClassName("intro-description")[0].innerHTML = marked('# Marked in browser\n\nRendered by **marked**.');
     }
 }
 
