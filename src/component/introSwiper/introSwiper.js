@@ -4,6 +4,7 @@ import "./introSwiper.scss";
 import PropTypes from "prop-types";
 import emitter from "../../config/events";
 import marked from "marked";
+import {getIntroMd} from "../../server/api";
 
 //此组件有目录和介绍组成;
 
@@ -25,7 +26,8 @@ class IntroSwiper extends Component{
                 {id:"5",href:"#",title:"基础3：采用vue生命周期",time:"3分",studyNum:341},
                 {id:"6",href:"#",title:"总结：魂典总体实现方式",time:"2分",studyNum:341},
                 {id:"7",href:"#",title:"结束语",time:"1分",studyNum:2341}
-            ]
+            ],
+            introContent:""
         }
         this.next = this.next.bind(this);
         this.prev = this.prev.bind(this);
@@ -113,11 +115,23 @@ class IntroSwiper extends Component{
                                 </ul>
                             </div>
                         </div>
-                        <div className="intro-description"></div>
+                        <div className="box">
+                            <div className="chapter-scroll">
+                                <div className="intro-description"></div>
+                            </div>
+                        </div>
                     </ReactSwipe>
                 </div>
             </div>
         )
+    }
+    componentWillMount(){
+        getIntroMd({}).then((res)=>{
+            this.state.introContent = res.data;
+            let showdown  = require('showdown');
+            let converter = new showdown.Converter();
+            document.getElementsByClassName("intro-description")[0].innerHTML = converter.makeHtml(this.state.introContent);
+        })
     }
     componentDidMount(){
        const totalH = document.getElementsByClassName("brochure-container")[0].clientHeight;
@@ -127,8 +141,7 @@ class IntroSwiper extends Component{
        const carouselH = totalH-bookDesH-payersH-operateH-150;
        document.getElementsByClassName("carousel")[0].style.height = (carouselH/75).toFixed(3)+"rem";
        document.getElementsByClassName("chapter-scroll")[0].style.height = (carouselH/75).toFixed(3)+"rem";
-
-       document.getElementsByClassName("intro-description")[0].innerHTML = marked('# Marked in browser\n\nRendered by **marked**.');
+       document.getElementsByClassName("chapter-scroll")[1].style.height = (carouselH/75).toFixed(3)+"rem";
     }
 }
 

@@ -3,6 +3,7 @@ import ReactSwipe from 'react-swipe'
 import PropTypes from "prop-types";
 import "./chapter.scss";
 import emitter from "../../config/events"
+import {getIntroMd} from "../../server/api";
 
 class Chapter extends Component{
     static contextTypes = {
@@ -51,15 +52,17 @@ class Chapter extends Component{
         let divList = this.state.bookChapterList.map((book,index)=>
             <div className="chapter-scroll-container" key={index}>
                 <div className="chapter-markdown">
-                    {book.content}
+                    
                 </div>
             </div>
         )
         return(
             <div className="chapter-container">
+               
                 <ReactSwipe ref={reactSwipe => this.reactSwipe = reactSwipe} className="chapter-content-container" swipeOptions={option}>
                     {divList}
                 </ReactSwipe>
+              
                 <div className="chapter-content-footer">
                     <i className="icon iconfont icon-left" onClick={this.prev}></i>
                     <i className="icon iconfont icon-menu" onClick={this.backIntro}></i>
@@ -67,6 +70,14 @@ class Chapter extends Component{
                 </div>
             </div>
         )
+    }
+    componentWillMount(){
+        getIntroMd({}).then((res)=>{
+            this.state.introContent = res.data;
+            let showdown  = require('showdown');
+            let converter = new showdown.Converter();
+            document.getElementsByClassName("chapter-markdown")[0].innerHTML = converter.makeHtml(this.state.introContent);
+        })
     }
     componentDidMount(){
         const totalH = document.getElementsByClassName("chapter-container")[0].clientHeight;

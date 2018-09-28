@@ -1,4 +1,5 @@
 @import '../../../static/common/base.scss';
+@import '../../../static/common/markdown.scss';
 .chapter-container{
     width: 100%;
     height: 100%;
@@ -11,6 +12,11 @@
             height: 100%;
             overflow: hidden;
             overflow-y: auto;
+            .chapter-markdown{
+                width: 90%;
+                margin: 20px auto;
+                font-size: 30px;
+            }
         }
     }
     .chapter-content-footer{
