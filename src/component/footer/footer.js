@@ -9,25 +9,29 @@ class Footer extends Component{
     constructor(props){
         super(props)
         this.state = {
-            tabList:['典集','已购','我的'],
+            tabList:['首页','典集','已购','我的'],
             index:0,
             hideFlag:true,
         }
         this.tabEvent = this.tabEvent.bind(this);
     }
     componentWillMount(){
-        const pathName = this.context.router.route.location.pathname
-        if(pathName === "/home"){
+        const pathName = this.context.router.route.location.pathname;
+        if(pathName === "/blogList"){
             this.setState({
                 index:0
             })
-        }else if(pathName === "/saled"){
+        }else if(pathName === "/home"){
             this.setState({
                 index:1
             })
-        }else if(pathName === "/personal"){
+        }else if(pathName === "/saled"){
             this.setState({
                 index:2
+            })
+        }else if(pathName === "/personal"){
+            this.setState({
+                index:3
             })
         }
     }
@@ -39,10 +43,12 @@ class Footer extends Component{
         const index = parseInt(ev.target.getAttribute("data-index"));
         let path = "";
         if(index === 0){
-            path = "/home"
+
         }else if(index === 1){
-            path = "/saled"
+            path = "/home"
         }else if(index === 2){
+            path = "/saled"
+        }else if(index === 3){
             path = "/personal"
         }
         this.context.router.history.push(path);
@@ -56,9 +62,15 @@ class Footer extends Component{
                 onClick={this.tabEvent}
                 data-index={index}
             >
-            <i className={
-                index === 0?"tab-i icon iconfont icon-shouye":
-                (index === 1?"tab-i icon iconfont icon-zhinengyouhua":"tab-i icon iconfont icon-geren")
+            <i 
+                className={
+                    index === 0?"tab-i icon iconfont icon-shouye":
+                    (
+                        index === 1?"tab-i icon iconfont icon-shujia-xu":
+                        (
+                            index === 2?"tab-i icon iconfont icon-zhinengyouhua":"tab-i icon iconfont icon-geren"
+                        )
+                    )
                 } 
             data-index={index}
             ></i>

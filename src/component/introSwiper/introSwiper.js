@@ -3,7 +3,6 @@ import ReactSwipe from 'react-swipe'
 import "./introSwiper.scss";
 import PropTypes from "prop-types";
 import emitter from "../../config/events";
-import marked from "marked";
 import {getIntroMd} from "../../server/api";
 
 //此组件有目录和介绍组成;
