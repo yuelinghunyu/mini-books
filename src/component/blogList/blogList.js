@@ -15,7 +15,8 @@ class BlogList extends Component {
     render(){
         let option = {
             speed: 400,
-            continuous: false,
+            auto: 3000,
+            continuous: true,
             transitionEnd: ((index, elem)=>{
                 this.transitionEndCallback(index,elem);
             }),
