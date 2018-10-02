@@ -1,0 +1,73 @@
+#wrapper {
+    height: 100%;
+    overflow: hidden;
+}
+#scroller{
+    position: relative;
+    z-index: 1;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    -o-text-size-adjust: none;
+    text-size-adjust: none;
+}
+#pullDown,
+#pullUp,
+.pulldown-tips {
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    position: relative;
+}
+.pullDownLabel{
+    display: block;
+    width:30px;
+    height: 30px;
+    transition: all 0.3s;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -15px;
+    margin-left: -15px;
+}
+.pulldown-logo{
+    display: block;
+    width:30px;
+    height: 30px;
+    background: url("/static/img/down.png") no-repeat center;
+    background-size:28px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -15px;
+    margin-left: -15px;
+}
+.pullDownLabel-default{
+    background: url("/static/img/down.png") no-repeat center;
+    background-size:28px;
+}
+.pullDownLabel-refresh{
+    background: url("/static/img/loading.gif") no-repeat center;
+    background-size:contain;
+}
+.up-rotate{
+    transform:rotate(180deg)
+}
+.pulldown-tips {
+    position: absolute;
+    top: -60px;
+    left: 0;
+    width: 100%;
+}

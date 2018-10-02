@@ -1,53 +1,31 @@
-import React,{Component} from 'react';
-import Rescroll from "../scroll/rescroll";
-import IScroll from "../scroll/iscroll-probe";
-import PropTypes from "prop-types";
-import "./blogFrom.scss";
+import IScroll from "./iscroll-probe";
+import "./rescroll.scss";
+import React, { Component } from 'react';
 
-class BlogFrom extends Component{
-
+class Rescroll extends Component{
     constructor(props){
-        super(props);
+        super(props)
         this.state = {
-            blogFromList:[
-                {id:"1",title:"webview 布局适配实践",href:"https://juejin.im/post/5b92a0eaf265da0ad13b5cac",createTime:"2018-9-20",times:236},
-                {id:"2",title:"前后端实现登录token拦截校验",href:"https://juejin.im/post/5b8c87f56fb9a01a1c572e2a",createTime:"2018-9-26",times:112},
-                {id:"1",title:"webview 布局适配实践",href:"https://juejin.im/post/5b92a0eaf265da0ad13b5cac",createTime:"2018-9-20",times:236},
-                {id:"2",title:"前后端实现登录token拦截校验",href:"https://juejin.im/post/5b8c87f56fb9a01a1c572e2a",createTime:"2018-9-26",times:112},
-                {id:"1",title:"webview 布局适配实践",href:"https://juejin.im/post/5b92a0eaf265da0ad13b5cac",createTime:"2018-9-20",times:236},
-                {id:"2",title:"前后端实现登录token拦截校验",href:"https://juejin.im/post/5b8c87f56fb9a01a1c572e2a",createTime:"2018-9-26",times:112},
-                {id:"1",title:"webview 布局适配实践",href:"https://juejin.im/post/5b92a0eaf265da0ad13b5cac",createTime:"2018-9-20",times:236},
-                {id:"2",title:"前后端实现登录token拦截校验",href:"https://juejin.im/post/5b8c87f56fb9a01a1c572e2a",createTime:"2018-9-26",times:112},
-                {id:"1",title:"webview 布局适配实践",href:"https://juejin.im/post/5b92a0eaf265da0ad13b5cac",createTime:"2018-9-20",times:236},
-                {id:"2",title:"前后端实现登录token拦截校验",href:"https://juejin.im/post/5b8c87f56fb9a01a1c572e2a",createTime:"2018-9-26",times:112},
-                {id:"1",title:"webview 布局适配实践",href:"https://juejin.im/post/5b92a0eaf265da0ad13b5cac",createTime:"2018-9-20",times:236},
-                {id:"2",title:"前后端实现登录token拦截校验",href:"https://juejin.im/post/5b8c87f56fb9a01a1c572e2a",createTime:"2018-9-26",times:112}
-            ],
             loadingStep:0, //加载状态0默认，1显示加载状态，2执行加载数据，只有当为0时才能再次加载，这是防止过快拉动刷新  
         }
     }
     render(){
-        let liList = this.state.blogFromList.map((blog,index)=>
-            <li className="li-blog-item" key={index}>
-                <p>{blog.title}</p>
-                <div className="blog-status">
-                    <p>
-                        <i className="icon iconfont icon-chakan"></i>
-                        <span>{blog.times} 次</span>
-                    </p>
-                    <p>
-                        <i className="icon iconfont icon-chuangjianshijian"></i>
-                        <span>{blog.createTime}</span>
-                    </p>
-                </div>
-            </li>
-        )
+        const {children} = this.props;
         return(
-            <Rescroll>
-                <ul className="li-blog-container">
-                    {liList}
-                </ul>
-            </Rescroll>
+            <div id="wrapper">
+                <div id="scroller">
+                    <div id="pullDown" className="">
+                        <span className="pullDownLabel pullDownLabel-default"></span>
+                    </div>
+                    <div className="pulldown-tips">
+                        <span className= "pulldown-logo"></span>
+                    </div>
+                    {children}
+                    <div id="pullUp" className="">
+                        <div className="pullUpLabel">加载更多</div>
+                    </div>
+                </div>
+            </div>
         )
     }
     componentDidMount(){
@@ -133,4 +111,5 @@ class BlogFrom extends Component{
         }, 1000);
     }
 }
-export default BlogFrom;
+
+export default Rescroll;
