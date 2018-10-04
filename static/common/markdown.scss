@@ -297,12 +297,12 @@ body {
    * {
     -webkit-print-color-adjust: exact;
    }
-   @media screen and (min-width: 914px) {
-       body {
-           width: 960px;
-           margin:0 auto;
-       }
-   }
+  //  @media screen and (min-width: 914px) {
+  //      body {
+  //          width: 960px;
+  //          margin:0 auto;
+  //      }
+  //  }
    @media print {
     table, pre {
      page-break-inside: avoid;

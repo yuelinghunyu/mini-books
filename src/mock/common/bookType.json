@@ -1,0 +1,11 @@
+{
+    "code":0,
+    "data":[
+        {"id":"23778da4-e44a-4fd7-9e5b-b36884613bd4","title":"PC","bookType":1},
+        {"id":"568e4aa8-05d2-4702-bb17-25ca1f0ef62a","title":"后端","bookType":2},
+        {"id":"5145179a-e51f-49b3-a090-6ec88b7fc9e2","title":"移动H5","bookType":3},
+        {"id":"087f4b6c-30bf-4994-98e1-0f3422f5dc65","title":"人工智能","bookType":4},
+        {"id":"5fe1eef9-f8a2-4527-b8d8-9bfd1c3dc2a3","title":"android","bookType":5},
+        {"id":"f38b557e-d924-4730-b80c-1ec68dd9427a","title":"通用","bookType":6}
+    ]
+}

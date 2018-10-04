@@ -53,7 +53,6 @@ class IntroSwiper extends Component{
         this.setState({
             isClick:true
         })
-        console.log(this);
         this.reactSwipe.prev();
     }
     redirectChapter(id,ev){
@@ -129,7 +128,7 @@ class IntroSwiper extends Component{
             this.state.introContent = res.data;
             let showdown  = require('showdown');
             let converter = new showdown.Converter();
-            document.getElementsByClassName("intro-description")[0].innerHTML = converter.makeHtml(this.state.introContent);
+            // document.getElementsByClassName("intro-description")[0].innerHTML = converter.makeHtml(this.state.introContent);
         })
     }
     componentDidMount(){

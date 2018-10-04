@@ -1,0 +1,29 @@
+@import '../../../static/common/base.scss';
+.tips-container{
+    width: 100%;
+    @extend .flex-o;
+    @extend .flex-drection-r;
+    @extend .align-items-c;
+    @extend .justify-content-c;
+    .tipc-container{
+        width: 4.667rem;
+        height: 7.5rem;
+        @extend .flex-o;
+        @extend .flex-drection-o;
+        @extend .align-items-c;
+        @extend .justify-content-c;
+        img{
+            display: block;
+            border: none;
+            @include boxShadow(0,0,0.1rem,#bbb);
+            width: 4rem;
+            height: 5.47rem;
+        }
+        p{
+            font-size: 30px;
+            color: #666;
+            text-align: center;
+            line-height: 0.53rem;
+        }
+    }
+}

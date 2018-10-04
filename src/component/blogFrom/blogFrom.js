@@ -9,26 +9,15 @@ class BlogFrom extends Component{
     constructor(props){
         super(props);
         this.state = {
-            blogFromList:[
-                {id:"1",title:"webview 布局适配实践",href:"https://juejin.im/post/5b92a0eaf265da0ad13b5cac",createTime:"2018-9-20",times:236},
-                {id:"2",title:"前后端实现登录token拦截校验",href:"https://juejin.im/post/5b8c87f56fb9a01a1c572e2a",createTime:"2018-9-26",times:112},
-                {id:"1",title:"webview 布局适配实践",href:"https://juejin.im/post/5b92a0eaf265da0ad13b5cac",createTime:"2018-9-20",times:236},
-                {id:"2",title:"前后端实现登录token拦截校验",href:"https://juejin.im/post/5b8c87f56fb9a01a1c572e2a",createTime:"2018-9-26",times:112},
-                {id:"1",title:"webview 布局适配实践",href:"https://juejin.im/post/5b92a0eaf265da0ad13b5cac",createTime:"2018-9-20",times:236},
-                {id:"2",title:"前后端实现登录token拦截校验",href:"https://juejin.im/post/5b8c87f56fb9a01a1c572e2a",createTime:"2018-9-26",times:112},
-                {id:"1",title:"webview 布局适配实践",href:"https://juejin.im/post/5b92a0eaf265da0ad13b5cac",createTime:"2018-9-20",times:236},
-                {id:"2",title:"前后端实现登录token拦截校验",href:"https://juejin.im/post/5b8c87f56fb9a01a1c572e2a",createTime:"2018-9-26",times:112},
-                {id:"1",title:"webview 布局适配实践",href:"https://juejin.im/post/5b92a0eaf265da0ad13b5cac",createTime:"2018-9-20",times:236},
-                {id:"2",title:"前后端实现登录token拦截校验",href:"https://juejin.im/post/5b8c87f56fb9a01a1c572e2a",createTime:"2018-9-26",times:112},
-                {id:"1",title:"webview 布局适配实践",href:"https://juejin.im/post/5b92a0eaf265da0ad13b5cac",createTime:"2018-9-20",times:236},
-                {id:"2",title:"前后端实现登录token拦截校验",href:"https://juejin.im/post/5b8c87f56fb9a01a1c572e2a",createTime:"2018-9-26",times:112}
-            ],
             loadingStep:0, //加载状态0默认，1显示加载状态，2执行加载数据，只有当为0时才能再次加载，这是防止过快拉动刷新  
         }
     }
+    redirectBlog(href){
+        window.location.href = href;
+    }
     render(){
-        let liList = this.state.blogFromList.map((blog,index)=>
-            <li className="li-blog-item" key={index}>
+        let liList = this.props.blogList.map((blog,index)=>
+            <li className="li-blog-item" key={index} onClick={this.redirectBlog.bind(this,blog.href)}>
                 <p>{blog.title}</p>
                 <div className="blog-status">
                     <p>
@@ -57,6 +46,9 @@ class BlogFrom extends Component{
             probeType: 2,
             bindToWrapper: true
         }
+        const wrapper = document.getElementById("wrapper");
+        document.getElementsByClassName("li-blog-container")[0].style.minHeight =  wrapper.clientHeight+ 10 + "px";
+        console.log(document.getElementsByClassName("li-blog-container")[0].clientHeight);
         let myScroll,
             pullDown = document.getElementById("pullDown"),
             pullUp = document.getElementById("pullUp"),
@@ -67,6 +59,7 @@ class BlogFrom extends Component{
             pullUp.style.display = "none";
             myScroll = new IScroll('#wrapper',option);
         const that = this;
+      
         myScroll.on("scroll", function() {
             if(that.state.loadingStep == 0 && !pullDown.getAttribute("class").match('refresh|loading') && !pullUp.getAttribute("class").match('refresh')){
                 if(this.y > 60) { //下拉刷新操作  
@@ -104,6 +97,7 @@ class BlogFrom extends Component{
             }
         });
     }
+    
     pullDownAction(myScroll){
         let pullDown = document.getElementById("pullDown"),
             pullDownLabel = document.getElementsByClassName("pullDownLabel")[0],

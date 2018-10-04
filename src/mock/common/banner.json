@@ -1,0 +1,8 @@
+{
+    "code":0,
+    "data":[
+        {"id":"8487ade8-5733-4705-b799-8140af0dcbf6","title":"banner1","href":"http://via.placeholder.com/750x262/blue/fff?text=banner1","redirect":"https://www.baidu.com/"},
+        {"id":"3ffaafe9-7d30-4ad8-85a7-bccffd313a0a","title":"banner2","href":"http://via.placeholder.com/750x262/blue/fff?text=banner2","redirect":"https://www.baidu.com/"},
+        {"id":"c490df4d-3589-43d5-9284-cc72070f2efd","title":"banner3","href":"http://via.placeholder.com/750x262/blue/fff?text=banner3","redirect":"https://www.baidu.com/"}
+    ]
+}

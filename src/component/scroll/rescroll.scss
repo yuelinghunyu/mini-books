@@ -26,48 +26,48 @@
 #pullDown,
 #pullUp,
 .pulldown-tips {
-    height: 60px;
-    line-height: 60px;
+    height: 1.3rem;
+    line-height:  1.3rem;
     text-align: center;
     position: relative;
 }
 .pullDownLabel{
     display: block;
-    width:30px;
-    height: 30px;
+    width: 0.533rem;
+    height: 0.533rem;
     transition: all 0.3s;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -15px;
-    margin-left: -15px;
+    margin-top: -0.2rem;
+    margin-left: -0.2rem;
 }
 .pulldown-logo{
     display: block;
-    width:30px;
-    height: 30px;
+    width: 0.533rem;
+    height: 0.533rem;
     background: url("/static/img/down.png") no-repeat center;
-    background-size:28px;
+    background-size:30px;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -15px;
-    margin-left: -15px;
+    margin-top: -0.267rem;
+    margin-left: -0.267rem;
 }
 .pullDownLabel-default{
     background: url("/static/img/down.png") no-repeat center;
-    background-size:28px;
+    background-size:0.5rem;
 }
 .pullDownLabel-refresh{
     background: url("/static/img/loading.gif") no-repeat center;
-    background-size:contain;
+    background-size:0.5rem;
 }
 .up-rotate{
     transform:rotate(180deg)
 }
 .pulldown-tips {
     position: absolute;
-    top: -60px;
+    top: -1.3rem;
     left: 0;
     width: 100%;
 }
