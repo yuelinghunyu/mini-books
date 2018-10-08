@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import ReactSwipe from 'react-swipe';
 import BlogFrom from '../blogFrom/blogFrom';
 import Header from "../header/header";
+import Tips from "../tips/tips";
 import "./blogList.scss";
 
 import axios from "axios";
@@ -17,6 +18,15 @@ class BlogList extends Component {
             bannerList:[],
             bookTypeList:[],
             blogList:[],
+            tip:"敬请期待-_-",
+            option:{
+                speed: 400,
+                auto: 5000,
+                continuous: true,
+                transitionEnd: ((index, elem)=>{
+                    this.transitionEndCallback(index,elem);
+                }),
+            }
         }
     }
     handleSetBookType(bookType){
@@ -32,14 +42,6 @@ class BlogList extends Component {
         })
     }
     render(){
-        let option = {
-            speed: 400,
-            auto: 5000,
-            continuous: true,
-            transitionEnd: ((index, elem)=>{
-                this.transitionEndCallback(index,elem);
-            }),
-        };
         let divList = [],spanList=[];
         let swiper = null;
         let header = null;
@@ -51,14 +53,18 @@ class BlogList extends Component {
                 </div>);
                 spanList.push(<span className={this.state.currentIndex==index?"active":"normal"} key={index}></span>);
             })
-            swiper = <ReactSwipe ref={reactSwipe => this.reactSwipe = reactSwipe} className="carousel" swipeOptions={option}>
+            swiper = <ReactSwipe ref={reactSwipe => this.reactSwipe = reactSwipe} className="carousel" swipeOptions={this.state.option}>
                         {divList}
                     </ReactSwipe>
             header =  <Header 
                             bookTypeList={this.state.bookTypeList}
                             handleSetBookType = { this.handleSetBookType.bind(this)}
                       ></Header>;
-            blogFrom =  <BlogFrom blogList={this.state.blogList}></BlogFrom>;       
+            if(this.state.blogList.length === 0){
+                blogFrom = <Tips tip={this.state.tip}></Tips>
+            }else{
+                blogFrom =  <BlogFrom blogList={this.state.blogList}></BlogFrom>;       
+            }
         }
        
         return(
@@ -83,7 +89,7 @@ class BlogList extends Component {
     }
 
     componentWillMount(){
-        const param = {bookType:3}
+        const param = {bookType:0}
         axios.all([getBannerList(),getBookTypeList(),getBlogList(param)]).then(
             axios.spread((bannerList,bookTypeList,blogList)=>{
                 if(bannerList.data.code === ERROR_OK && bookTypeList.data.code === ERROR_OK && blogList.data.code === ERROR_OK){

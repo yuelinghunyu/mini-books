@@ -136,10 +136,15 @@ class IntroSwiper extends Component{
        const bookDesH = document.getElementsByClassName("bookDes-container")[0].clientHeight;
        const payersH = document.getElementsByClassName("payers-container")[0].clientHeight;
        const operateH = document.getElementsByClassName("operate-container")[0].clientHeight;
-       const carouselH = totalH-bookDesH-payersH-operateH-150;
-       document.getElementsByClassName("carousel")[0].style.height = (carouselH/75).toFixed(3)+"rem";
-       document.getElementsByClassName("chapter-scroll")[0].style.height = (carouselH/75).toFixed(3)+"rem";
-       document.getElementsByClassName("chapter-scroll")[1].style.height = (carouselH/75).toFixed(3)+"rem";
+       const tabH = document.getElementsByClassName("intro-chapter-tab")[0].clientHeight;
+       const carouselH = totalH-bookDesH-payersH-operateH-tabH-30;
+       console.log(carouselH);
+       document.getElementsByClassName("carousel")[0].style.height = carouselH+"px";
+       document.getElementsByClassName("chapter-scroll")[0].style.height = carouselH+"px";
+       document.getElementsByClassName("chapter-scroll")[1].style.height = carouselH+"px";
+    //    document.getElementsByClassName("carousel")[0].style.height = (carouselH/75).toFixed(3)+"rem";
+    //    document.getElementsByClassName("chapter-scroll")[0].style.height = (carouselH/75).toFixed(3)+"rem";
+    //    document.getElementsByClassName("chapter-scroll")[1].style.height = (carouselH/75).toFixed(3)+"rem";
     }
 }
 

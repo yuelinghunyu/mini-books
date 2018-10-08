@@ -5,18 +5,18 @@
     @extend .flex-o;
     @extend .flex-direction-o;
     @extend .flex-1;
-    margin-top:0.333rem;
+    margin-top:0.1rem;
     .intro-chapter-tab{
         @extend .flex-o;
         @extend .flex-direction-r;
         @extend .align-items-c;
         position: relative;
-        height: 1.333rem;
+        height: 1rem;
         border-bottom:1px solid #ddd; 
         span{
-            height: 1.333rem;
+            height: 1rem;
             width: 50%;
-            line-height: 1.333rem;
+            line-height: 1rem;
             text-align: center;
             font-size: 30px;
             color: #333;

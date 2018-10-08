@@ -2,14 +2,14 @@
 .tips-container{
     width: 100%;
     @extend .flex-o;
-    @extend .flex-drection-r;
+    @extend .flex-direction-r;
     @extend .align-items-c;
     @extend .justify-content-c;
-    .tipc-container{
+    .tip-container{
         width: 4.667rem;
         height: 7.5rem;
         @extend .flex-o;
-        @extend .flex-drection-o;
+        @extend .flex-direction-o;
         @extend .align-items-c;
         @extend .justify-content-c;
         img{

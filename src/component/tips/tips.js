@@ -5,8 +5,7 @@ class Tips extends Component{
     constructor(props){
         super(props)
         this.state = {
-            tip:"敬请期待",
-            logo:require("static/img/default.jpg")
+            logo:require("../../../static/img/default.jpg")
         }
     }
 
@@ -15,7 +14,7 @@ class Tips extends Component{
             <div className="tips-container">
                 <div className="tip-container">
                     <img src={this.state.logo} />
-                    <p className="tip-content">{this.state.tip}</p>
+                    <p className="tip-content">{this.props.tip}</p>
                 </div>
             </div>
         )
