@@ -5,9 +5,10 @@
     @extend .flex-direction-r;
     @extend .align-items-c;
     @extend .justify-content-c;
+    height: 100%;
     .tip-container{
         width: 4.667rem;
-        height: 7.5rem;
+        height: 100%;
         @extend .flex-o;
         @extend .flex-direction-o;
         @extend .align-items-c;

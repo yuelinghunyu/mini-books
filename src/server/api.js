@@ -1,7 +1,11 @@
 import axios from "axios";
+// 获取微信用户;
+const getUser = ()=>{
+    const userId = Math.random()>0?"98f69e89-3885-480c-9852-46c77e5fecc3":"5f52683f-eae5-45a1-920c-786505fb2328";
+    return userId;
+}
 
 // 获取介绍页面md文件；
-
 const getIntroMd = (param)=>{
     const url = "../src/mock/markdown/demo.md";
     return axios.get(url,{params:param}).then((res)=>{
@@ -46,10 +50,41 @@ const getBlogList = (params)=>{
         return Promise.reject(error);
     })
 }
+//小典列表;
+const getBookList = (params)=>{
+    const type = params.bookType;
+    let url = null;
+    switch(type){
+        case 0:url = "../src/mock/bookList/bookList-0.json";break;
+        case 1:url = "../src/mock/bookList/bookList-1.json";break;
+        case 2:url = "../src/mock/bookList/bookList-2.json";break;
+        case 3:url = "../src/mock/bookList/bookList-3.json";break;
+        case 4:url = "../src/mock/bookList/bookList-4.json";break;
+        case 5:url = "../src/mock/bookList/bookList-5.json";break;
+        case 6:url = "../src/mock/bookList/bookList-6.json";break;
+    }
+    return axios.get(url).then((res)=>{
+        return Promise.resolve(res)
+    }).catch((error)=>{
+        return Promise.reject(error);
+    })
+}
+const getUserInfo = (params)=>{
+    const wxId = params.wxId;
+    let url = "../src/mock/users/"+wxId+".json";
+    return axios.get(url).then((res)=>{
+        return Promise.resolve(res)
+    }).catch((error)=>{
+        return Promise.reject(error);
+    })
+}
 
 export {
+    getUser,
     getIntroMd,
     getBannerList,
     getBookTypeList,
-    getBlogList
+    getBlogList,
+    getBookList,
+    getUserInfo
 }

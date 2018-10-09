@@ -1,0 +1,10 @@
+{
+    "code":0,
+    "data":{
+        "wxId":"5f52683f-eae5-45a1-920c-786505fb2328",
+        "wxName":"哈哈哈",
+        "logo":"../../../static/img/a.jpg",
+        "books":[],
+        "payDate":"2018-9-6"
+    }
+}

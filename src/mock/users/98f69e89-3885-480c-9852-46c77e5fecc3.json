@@ -1,0 +1,13 @@
+{
+    "code":0,
+    "data":{
+            "wxId":"98f69e89-3885-480c-9852-46c77e5fecc3",
+            "wxName":"三叶草",
+            "logo":"../../../static/img/d.jpg",
+            "books":[
+                "e259f65c-90dc-4ed1-89aa-6308ec721a47",
+                "fc1a1419-0eca-4f17-b14c-35c12c63d9a8"
+            ],
+            "payDate":"2018-9-6"
+        }
+}

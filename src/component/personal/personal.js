@@ -18,12 +18,14 @@ class Personal extends Component{
                 <div className='username-container'>
                     <img src="static/img/user.jpg" alt="" />
                     <span className="username">月翎魂雨</span>
+                </div>
+                <div className='personal-div message-center'>
+                    <span>意见反馈</span>
                     <i 
                         className="redirect icon iconfont icon-xiayibu" 
                         onClick={this.eventPerson}
                     ></i>
                 </div>
-                <div className='personal-div message-center'>意见反馈</div>
                 <div className='personal-div saled-btn'>
                     <span>已购</span>
                     <span>2本</span>
