@@ -1,16 +1,22 @@
 import React,{Component} from 'react';
 import './personal.scss';
+import PropTypes from "prop-types";
+import emitter from "../../config/events";
 
 class Personal extends Component{
+    static contextTypes = {
+        router:PropTypes.object.isRequired,
+    }
     constructor(){
         super()
-
         this.eventPerson = this.eventPerson.bind(this);
     }
 
     eventPerson(ev){
         ev.preventDefault();
-        window.location.href = "https://juejin.im/user/5aab1203f265da239d490ab0";
+        // emitter.emit('hideFooter',false);
+        const path = "/feedback/"+false;
+        this.context.router.history.push(path);
     }
     render(){
         return(
@@ -30,7 +36,7 @@ class Personal extends Component{
                     <span>已购</span>
                     <span>2本</span>
                 </div>
-                <div className='ancel-btn personal-div'>退出登录</div>
+                <div className='ancel-btn'>退出登录</div>
             </div>
         )
     }

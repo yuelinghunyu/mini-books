@@ -1,0 +1,43 @@
+@import '../../../static/common/base.scss';
+.warn-container{
+    position: absolute;
+    width: 80%;
+    height: 1rem;
+    @extend .flex-o;
+    @extend .flex-direction-r;
+    @extend .align-items-c;
+    bottom: 1rem;
+    z-index: 1200;
+    left:50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    @include radius(10px);
+    i{
+        display: inline-block;
+        width: 0.4rem;
+        height: 0.4rem;
+        font-size: 0.38rem;
+        line-height: 0.4rem;
+        text-align: center;
+        margin-left: 0.5rem;
+    }
+    span{
+        margin-left: 0.1rem;
+        font-size: 26px;
+        line-height: 0.4rem;
+        color: #3c763d;
+    }
+}
+.success-warn{
+    background-color: #dff0d8;
+    i{
+        color: #3c763d;
+    }
+}
+.fail-warn{
+    background-color:#ebccd1;
+    i{
+        color: 3c763d;
+    }
+}

@@ -3,33 +3,39 @@ import React, { Component } from 'react';
 import RouterIndex from "./router/index";
 import Footer from "./component/footer/footer";
 import {Route,HashRouter as Router} from 'react-router-dom';
+import Warn from './component/warn/warn';
 import emitter from './config/events';
 
 //章节组件;
 import Chapter from "./component/chapter/chapter";
+//反馈组件;
+import Feedback from "./component/feedback/feedback";
 
 class App extends Component{
     constructor(props){
         super(props);
         this.state = {
-            hideFlag:true,
+            warnConfig:{
+                warnText:"提交失败",
+                warnFlag:"fail",
+                hideFlag:true,
+            }
         }
     }
     componentWillMount(){
-        const params = window.location.hash.split("/");
-        if(params[1] === "chapter"){
-            const hideFlag = JSON.parse(params[3]);
-            this.setState({
-                hideFlag:hideFlag
-            })
-        }
-       
+      setTimeout(()=>{
+        this.setState({
+            warnConfig:{
+                hideFlag:false,
+            }
+       })
+      },3000) 
     }
     componentDidMount(){
         // 装载发射器;
-       this.eventEmitter = emitter.addListener("hideFooter",(msg)=>{
+       this.eventEmitter = emitter.addListener("hideWarn",(msg)=>{
            this.setState({
-               hideFlag:msg
+                warnConfig:msg
            })
        })
     }
@@ -37,12 +43,18 @@ class App extends Component{
         emitter.removeListener(this.eventEmitter);
     }
     render(){
+        let warnShowOrHide = null;
+        if(this.state.warnConfig.hideFlag){
+            warnShowOrHide = <Warn warnText={this.state.warnConfig.warnText} warnFlag={this.state.warnConfig.warnFlag}></Warn>
+        }
         return(
             <Router>
                 <div className='app-container'>
+                    {warnShowOrHide}
                     <RouterIndex></RouterIndex>
-                    {this.state.hideFlag?<Footer></Footer>:null}
+                    <Footer></Footer>
                     <Route path="/chapter/:id/:flag" component={Chapter}/>
+                    <Route path="/feedback/:flag" component={Feedback}></Route>
                 </div>
             </Router>
         )

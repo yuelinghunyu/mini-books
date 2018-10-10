@@ -1,7 +1,7 @@
 import axios from "axios";
 // 获取微信用户;
 const getUser = ()=>{
-    const userId = Math.random()>0?"98f69e89-3885-480c-9852-46c77e5fecc3":"5f52683f-eae5-45a1-920c-786505fb2328";
+    const userId = Math.random()<0?"98f69e89-3885-480c-9852-46c77e5fecc3":"5f52683f-eae5-45a1-920c-786505fb2328";
     return userId;
 }
 

@@ -4,6 +4,10 @@
     height: 100%;
     @extend .flex-o;
     @extend .flex-direction-o;
+    position: absolute;
+    top: 0px;
+    z-index: 1000;
+    background-color: #fff;
     .chapter-content-container{
         @extend .flex-1;
         position: relative;

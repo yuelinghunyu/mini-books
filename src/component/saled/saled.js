@@ -4,18 +4,26 @@ import SaledBooks from "../saledBooks/saledBooks"
 import {getUser,getBookList,getUserInfo} from "../../server/api";
 import {ERROR_OK,add} from "../../config/utils";
 import axios from "axios";
+import Tips from "../tips/tips";
 
 class Saled extends Component{
     constructor(){
         super()
         this.state = {
-            bookContactList:[]
+            bookContactList:[],
+            tip:"你还没有购买小典哦~"
         }
     }
     render(){
+        let saledBook = null;
+        if(this.state.bookContactList.length === 0){
+            saledBook = <Tips tip={this.state.tip}></Tips>
+        }else{
+            saledBook = <SaledBooks bookList = {this.state.bookContactList}></SaledBooks>;       
+        }
         return(
             <div className="saled-container">
-                <SaledBooks></SaledBooks>
+                {saledBook}
             </div>
         )
     }

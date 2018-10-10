@@ -50,6 +50,12 @@
         }
     }
     .ancel-btn{
+        height: 1.2rem;
+        background-color: #fff;
+        @extend .flex-o;
+        @extend .flex-direction-r;
         @extend .justify-content-c;
+        @extend .align-items-c;
+        padding: 0rem 0.65rem;
     }
 }

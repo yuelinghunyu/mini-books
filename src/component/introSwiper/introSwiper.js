@@ -57,7 +57,7 @@ class IntroSwiper extends Component{
     }
     redirectChapter(id,ev){
         ev.preventDefault();
-        emitter.emit('hideFooter',false);
+        // emitter.emit('hideFooter',false);
         const path = "/chapter/"+id+"/"+false;
         this.context.router.history.push(path);
     }
