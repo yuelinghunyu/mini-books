@@ -18,22 +18,16 @@ class App extends Component{
             warnConfig:{
                 warnText:"提交失败",
                 warnFlag:"fail",
-                hideFlag:true,
+                hideFlag:false,
             }
         }
     }
     componentWillMount(){
-      setTimeout(()=>{
-        this.setState({
-            warnConfig:{
-                hideFlag:false,
-            }
-       })
-      },3000) 
+     
     }
     componentDidMount(){
         // 装载发射器;
-       this.eventEmitter = emitter.addListener("hideWarn",(msg)=>{
+       this.eventEmitter = emitter.addListener("showWarn",(msg)=>{
            this.setState({
                 warnConfig:msg
            })
@@ -53,8 +47,8 @@ class App extends Component{
                     {warnShowOrHide}
                     <RouterIndex></RouterIndex>
                     <Footer></Footer>
-                    <Route path="/chapter/:id/:flag" component={Chapter}/>
-                    <Route path="/feedback/:flag" component={Feedback}></Route>
+                    <Route path="/chapter/:id" component={Chapter}/>
+                    <Route path="/feedback" component={Feedback}></Route>
                 </div>
             </Router>
         )

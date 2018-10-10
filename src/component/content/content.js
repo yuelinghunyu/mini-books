@@ -38,7 +38,7 @@ class Content extends Component{
         )
     }
     handleSetBookType(bookType){
-        const wxId = getUser();
+        const wxId = getUser().wxId;
         const userParam = {
             wxId:wxId
         }
@@ -69,7 +69,7 @@ class Content extends Component{
         );
     }
     componentWillMount(){
-        const wxId = getUser();
+        const wxId = getUser().wxId;
         const bookListParam = {
             bookType:0
         }

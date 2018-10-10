@@ -28,7 +28,7 @@ class Saled extends Component{
         )
     }
     componentWillMount(){
-        const wxId = getUser();
+        const wxId = getUser().wxId;
         const bookListParam = {
             bookType:0
         }
@@ -44,7 +44,7 @@ class Saled extends Component{
                         const totalBookList = bookList.data.data;
                         let splitBookList = [];
                         usersPayBooks.forEach(bookId => {
-                            splitBookList = add(totalBookList,bookId)
+                            splitBookList.push(add(totalBookList,bookId)[0]);
                         });
                         this.setState({
                             bookContactList:splitBookList,

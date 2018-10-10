@@ -1,11 +1,21 @@
 import React,{Component} from "react";
 import "./feedback.scss";
+import {throttle} from "../../config/utils";
+import emitter from "../../config/events";
+import PropTypes from "prop-types";
 
 class Feedback extends Component{
+    static contextTypes = {
+        router:PropTypes.object.isRequired,
+    }
+
     constructor(props){
         super(props)
         this.state = {
-            warnText:"提交成功"
+            submitConfig:{
+                submiting:false,
+                submittext:"提交"
+            }
         }
     }
     activeEvent(ev,index){
@@ -15,6 +25,36 @@ class Feedback extends Component{
             circles[i].setAttribute("class","select-circle");
         }
         circles[index].setAttribute("class","select-circle select-active");
+    }
+    submitEvent(){
+        this.setState({
+            submitConfig:{
+                submiting:true,
+                submittext:"正在提交,请稍后~"
+            }
+        });
+        setTimeout(()=>{
+            emitter.emit("showWarn",{
+                warnText:"提交成功,感谢你的支持~",
+                warnFlag:"success",
+                hideFlag:true,
+            });
+            setTimeout(()=>{
+                this.setState({
+                    submitConfig:{
+                        submiting:false,
+                        submittext:"提交"
+                    }
+                });
+                emitter.emit("showWarn",{
+                    warnText:"提交成功,感谢你的支持~",
+                    warnFlag:"success",
+                    hideFlag:false,
+                });
+                const path = "/personal";
+                this.context.router.history.push(path);
+            },3000)
+        },3000)
     }
     render(){
         return(
@@ -37,7 +77,7 @@ class Feedback extends Component{
                         </p>
                     </div>
                 </div>
-                <div className="submit-btn">提交</div>
+                <div className="submit-btn" onClick={throttle(this.submitEvent.bind(this),1000)}>{this.state.submitConfig.submittext}</div>
             </div>
         )
     }

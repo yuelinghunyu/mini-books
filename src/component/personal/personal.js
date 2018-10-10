@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import './personal.scss';
 import PropTypes from "prop-types";
-import emitter from "../../config/events";
 
 class Personal extends Component{
     static contextTypes = {
@@ -14,8 +13,7 @@ class Personal extends Component{
 
     eventPerson(ev){
         ev.preventDefault();
-        // emitter.emit('hideFooter',false);
-        const path = "/feedback/"+false;
+        const path = "/feedback";
         this.context.router.history.push(path);
     }
     render(){

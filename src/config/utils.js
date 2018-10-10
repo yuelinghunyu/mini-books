@@ -29,9 +29,39 @@ const add = (array,item)=>{
     }
     return newArray;
 }
+
+const throttle = (fn, delay)=>{
+    let args     = arguments,
+        context  = this,
+        timer    = null,
+        remaining   = 0,
+        previous = new Date();
+
+    return function () {
+        let now = new Date();
+        remaining = now - previous;
+
+        if (remaining >= delay) {
+            if (timer) {
+                clearTimeout(timer);
+            }
+
+            fn.apply(context, args);
+            previous = now;
+        } else {
+            if (!timer) {
+                timer = setTimeout(function () {
+                    fn.apply(context, args);
+                    previous = new Date();
+                }, delay - remaining);
+            }
+        }
+    };
+}
 export {
     guid,
     ERROR_OK,
     remove,
-    add
+    add,
+    throttle
 }

@@ -1,8 +1,14 @@
 import axios from "axios";
 // 获取微信用户;
 const getUser = ()=>{
-    const userId = Math.random()<0?"98f69e89-3885-480c-9852-46c77e5fecc3":"5f52683f-eae5-45a1-920c-786505fb2328";
-    return userId;
+
+    // const userId = Math.random()<0?"98f69e89-3885-480c-9852-46c77e5fecc3":"5f52683f-eae5-45a1-920c-786505fb2328";
+    const user = {
+        "wxId":"98f69e89-3885-480c-9852-46c77e5fecc3",
+        "wxName":"三叶草",
+        "logo":"../../../static/img/b.jpg"
+    }
+    return user;
 }
 
 // 获取介绍页面md文件；
@@ -78,7 +84,16 @@ const getUserInfo = (params)=>{
         return Promise.reject(error);
     })
 }
-
+//单独小典;
+const getBook = (params)=>{
+    const id = params.id;
+    let url = "../src/mock/bookList/"+id+".json";
+    return axios.get(url).then((res)=>{
+        return Promise.resolve(res)
+    }).catch((error)=>{
+        return Promise.reject(error);
+    })
+}
 export {
     getUser,
     getIntroMd,
@@ -86,5 +101,6 @@ export {
     getBookTypeList,
     getBlogList,
     getBookList,
-    getUserInfo
+    getUserInfo,
+    getBook
 }

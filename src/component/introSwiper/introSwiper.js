@@ -2,7 +2,6 @@ import React,{Component} from "react";
 import ReactSwipe from 'react-swipe'
 import "./introSwiper.scss";
 import PropTypes from "prop-types";
-import emitter from "../../config/events";
 import {getIntroMd} from "../../server/api";
 
 //此组件有目录和介绍组成;
@@ -17,16 +16,14 @@ class IntroSwiper extends Component{
             currentIndex:0,
             isClick:true,
             isPay:false,
-            bookChapterList:[
-                {id:"1",href:"#",title:"什么事魂典",time:"1分",studyNum:2341},
-                {id:"2",href:"#",title:"魂典的架构",time:"1分",studyNum:341},
-                {id:"3",href:"#",title:"基础1：魂典能帮助你实现什么功能",time:"4分",studyNum:341},
-                {id:"4",href:"#",title:"基础2：采用vue路由进行拦截跳转",time:"3分",studyNum:341},
-                {id:"5",href:"#",title:"基础3：采用vue生命周期",time:"3分",studyNum:341},
-                {id:"6",href:"#",title:"总结：魂典总体实现方式",time:"2分",studyNum:341},
-                {id:"7",href:"#",title:"结束语",time:"1分",studyNum:2341}
-            ],
-            introContent:""
+            introContent:"",
+            option:{
+                speed: 400,
+                continuous: false,
+                transitionEnd: ((index, elem)=>{
+                   this.transitionEndCallback(index,elem);
+                }),
+            }
         }
         this.next = this.next.bind(this);
         this.prev = this.prev.bind(this);
@@ -57,22 +54,14 @@ class IntroSwiper extends Component{
     }
     redirectChapter(id,ev){
         ev.preventDefault();
-        // emitter.emit('hideFooter',false);
-        const path = "/chapter/"+id+"/"+false;
+        const path = "/chapter/"+id;
         this.context.router.history.push(path);
     }
     render(){
-        let option = {
-            speed: 400,
-            continuous: false,
-            transitionEnd: ((index, elem)=>{
-               this.transitionEndCallback(index,elem);
-            }),
-        };
         let pane1 = [];
-        this.state.bookChapterList.map((chapter,index)=>{
+        this.props.bookIntro.chapters.map((chapter,index)=>{
             let i = null;
-            if((index === 0 || index === this.state.bookChapterList.length-1)&& !this.state.isPay){
+            if((index === 0 || index === this.props.bookIntro.chapters.length-1)&& !this.state.isPay){
                 i = <i className="chapter-is-pay try">试读</i>
             }else if(!this.state.isPay){
                 i = <i className="chapter-is-pay icon iconfont icon-suo"></i>
@@ -89,7 +78,7 @@ class IntroSwiper extends Component{
                                 <span className="flag-qid-title">{chapter.title}</span>
                                 <p className="chapter-status">
                                     <span>时长:{chapter.time}</span>
-                                    <span>{chapter.studyNum}次学习</span>
+                                    <span>{chapter.browser}次学习</span>
                                 </p>
                             </div>
                             {i}
@@ -105,7 +94,7 @@ class IntroSwiper extends Component{
                     <i className={!this.state.isClick?"i-active":""}></i>
                 </div>
                 <div className="intro-chapter-swiper">
-                    <ReactSwipe ref={reactSwipe => this.reactSwipe = reactSwipe} className="carousel" swipeOptions={option}>
+                    <ReactSwipe ref={reactSwipe => this.reactSwipe = reactSwipe} className="carousel" swipeOptions={this.state.option}>
                         <div className="box">
                             <div className="chapter-scroll">
                                 <ul >

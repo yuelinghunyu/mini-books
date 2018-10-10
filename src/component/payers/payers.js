@@ -5,22 +5,11 @@ import "./payers.scss";
 class Payers extends Component{
     constructor(props){
         super(props)
-        this.state = {
-            userList:[
-                {userId:"1",userName:"月翎魂雨",logo:"static/img/user.jpg"},
-                {userId:"2",userName:"月翎魂雨",logo:"static/img/a.jpg"},
-                {userId:"3",userName:"月翎魂雨",logo:"static/img/b.jpg"},
-                {userId:"4",userName:"月翎魂雨",logo:"static/img/c.jpg"},
-                {userId:"5",userName:"月翎魂雨",logo:"static/img/d.jpg"},
-                {userId:"6",userName:"月翎魂雨",logo:"static/img/e.jpg"},
-                {userId:"7",userName:"月翎魂雨",logo:"static/img/f.jpg"},
-            ]
-        }
     }
     render(){
-        const totalList = this.state.userList;
+        const totalList = this.props.payers;
         const list = totalList.slice(0,5).map((user,index)=>
-            <li className="payers-user-item" id={user.userId} key={index}>
+            <li className="payers-user-item" id={user.wxId} key={index}>
                 <img className="payers-user-logo" alt="logo" src={user.logo} />
             </li>
         )
