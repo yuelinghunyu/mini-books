@@ -13,7 +13,7 @@ const getUser = ()=>{
 
 // 获取介绍页面md文件；
 const getIntroMd = (param)=>{
-    const url = "../src/mock/markdown/demo.md";
+    const url = param.url;
     return axios.get(url,{params:param}).then((res)=>{
         return Promise.resolve(res)
     }).catch((error)=>{

@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import ReactSwipe from 'react-swipe'
 import PropTypes from "prop-types";
 import "./chapter.scss";
-import emitter from "../../config/events"
 import {getIntroMd} from "../../server/api";
 
 class Chapter extends Component{
@@ -35,7 +34,6 @@ class Chapter extends Component{
     }
     backIntro(ev){
         ev.preventDefault();
-        emitter.emit('hideFooter',true);
         const id = this.context.router.route.match.params.id;
         const path = "/brochure/"+id;
         this.context.router.history.push(path);
@@ -72,11 +70,14 @@ class Chapter extends Component{
         )
     }
     componentWillMount(){
-        getIntroMd({}).then((res)=>{
-            this.state.introContent = res.data;
+        const url = this.context.router.route.match.params.url;
+        const params = {
+            url:decodeURIComponent(url)
+        }
+        getIntroMd(params).then((res)=>{
             let showdown  = require('showdown');
             let converter = new showdown.Converter();
-            document.getElementsByClassName("chapter-markdown")[0].innerHTML = converter.makeHtml(this.state.introContent);
+            document.getElementsByClassName("chapter-markdown")[0].innerHTML = converter.makeHtml( res.data);
         })
     }
     componentDidMount(){

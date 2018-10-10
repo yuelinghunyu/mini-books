@@ -16,7 +16,6 @@ class IntroSwiper extends Component{
             currentIndex:0,
             isClick:true,
             isPay:false,
-            introContent:"",
             option:{
                 speed: 400,
                 continuous: false,
@@ -52,9 +51,10 @@ class IntroSwiper extends Component{
         })
         this.reactSwipe.prev();
     }
-    redirectChapter(id,ev){
+    redirectChapter(url,ev){
         ev.preventDefault();
-        const path = "/chapter/"+id;
+        const id = this.context.router.route.match.params.id;
+        const path = "/chapter/"+encodeURIComponent(url)+"/"+id;
         this.context.router.history.push(path);
     }
     render(){
@@ -70,7 +70,7 @@ class IntroSwiper extends Component{
                         className="chapter-item" 
                         key={index} 
                         data-id={chapter.id} 
-                        onClick={(ev)=>this.redirectChapter(chapter.id,ev)}
+                        onClick={(ev)=>this.redirectChapter(chapter.href,ev)}
                     >
                         <span className="flag-qid">{index + 1}</span>
                         <div className="flag-qid-right">
@@ -113,11 +113,13 @@ class IntroSwiper extends Component{
         )
     }
     componentWillMount(){
-        getIntroMd({}).then((res)=>{
-            this.state.introContent = res.data;
+        const params = {
+            url:this.props.bookIntro.introUrl
+        };
+        getIntroMd(params).then((res)=>{
             let showdown  = require('showdown');
             let converter = new showdown.Converter();
-            // document.getElementsByClassName("intro-description")[0].innerHTML = converter.makeHtml(this.state.introContent);
+            document.getElementsByClassName("intro-description")[0].innerHTML = converter.makeHtml(res.data);
         })
     }
     componentDidMount(){
@@ -127,13 +129,9 @@ class IntroSwiper extends Component{
        const operateH = document.getElementsByClassName("operate-container")[0].clientHeight;
        const tabH = document.getElementsByClassName("intro-chapter-tab")[0].clientHeight;
        const carouselH = totalH-bookDesH-payersH-operateH-tabH-30;
-       console.log(carouselH);
        document.getElementsByClassName("carousel")[0].style.height = carouselH+"px";
        document.getElementsByClassName("chapter-scroll")[0].style.height = carouselH+"px";
        document.getElementsByClassName("chapter-scroll")[1].style.height = carouselH+"px";
-    //    document.getElementsByClassName("carousel")[0].style.height = (carouselH/75).toFixed(3)+"rem";
-    //    document.getElementsByClassName("chapter-scroll")[0].style.height = (carouselH/75).toFixed(3)+"rem";
-    //    document.getElementsByClassName("chapter-scroll")[1].style.height = (carouselH/75).toFixed(3)+"rem";
     }
 }
 
