@@ -8,17 +8,32 @@
     top: 0px;
     z-index: 1000;
     background-color: #fff;
-    .chapter-content-container{
+    .chapter-scroll-container{
         @extend .flex-1;
         position: relative;
-        .chapter-scroll-container{
+        overflow: hidden;
+        overflow-y: auto;
+        .chapter-markdown{
+            width: 90%;
+            margin: 20px auto;
+            font-size: 30px;
+        }
+        .no-pay-container{
+            @extend .flex-o;
+            @extend .flex-direction-o;
+            @extend .justify-content-c;
+            @extend .align-items-c;
             height: 100%;
-            overflow: hidden;
-            overflow-y: auto;
-            .chapter-markdown{
-                width: 90%;
-                margin: 20px auto;
-                font-size: 30px;
+            .pay-btn{
+                height: 0.8rem;
+                width: 2rem;
+                text-align: center;
+                font-size: 26px;
+                line-height:  0.8rem;
+                margin-bottom: 1rem;
+                @include radius(0.4rem);
+                color: #fff;
+                background-color: #007fff;
             }
         }
     }

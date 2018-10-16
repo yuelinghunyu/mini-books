@@ -51,10 +51,14 @@ class IntroSwiper extends Component{
         })
         this.reactSwipe.prev();
     }
-    redirectChapter(url,ev){
+    redirectChapter(chapterId,index,ev){
         ev.preventDefault();
         const id = this.context.router.route.match.params.id;
-        const path = "/chapter/"+encodeURIComponent(url)+"/"+id;
+        let flag = false;//支持试读
+        if(index === 0 || index === this.props.bookIntro.chapters.length - 1){
+            flag = true;
+        }
+        const path = "/chapter/"+id+"/"+chapterId+"/"+flag;
         this.context.router.history.push(path);
     }
     render(){
@@ -70,7 +74,7 @@ class IntroSwiper extends Component{
                         className="chapter-item" 
                         key={index} 
                         data-id={chapter.id} 
-                        onClick={(ev)=>this.redirectChapter(chapter.href,ev)}
+                        onClick={(ev)=>this.redirectChapter(chapter.id,index,ev)}
                     >
                         <span className="flag-qid">{index + 1}</span>
                         <div className="flag-qid-right">

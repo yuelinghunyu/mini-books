@@ -63,5 +63,6 @@ export {
     ERROR_OK,
     remove,
     add,
-    throttle
+    throttle,
+    indexOf
 }

@@ -47,7 +47,7 @@ class App extends Component{
                     {warnShowOrHide}
                     <RouterIndex></RouterIndex>
                     <Footer></Footer>
-                    <Route path="/chapter/:url/:id" component={Chapter}/>
+                    <Route path="/chapter/:bookId/:chapterId/:flag" component={Chapter}/>
                     <Route path="/feedback" component={Feedback}></Route>
                 </div>
             </Router>
