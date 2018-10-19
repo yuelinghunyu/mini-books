@@ -43,10 +43,15 @@ class Chapter extends Component{
         }
     }
     loadMarkDown(){
-        const urlParam = {
-            url:this.state.bookChapterList[this.state.currentIndex].href
+        let flag = false;//支持试读
+        const chapterId = this.state.bookChapterList[this.state.currentIndex].id;
+        const bookId = this.context.router.route.match.params.bookId;
+        if(this.state.currentIndex === 0 || this.state.currentIndex === this.state.bookChapterList.length - 1){
+            flag = true;
         }
-        this.getIntroMd(urlParam);
+        const path = "/chapter/"+bookId+"/"+chapterId+"/"+flag;
+        this.context.router.history.replace(path);
+        window.location.reload();
     }
    
     backIntro(ev){
@@ -57,6 +62,7 @@ class Chapter extends Component{
     }
     render(){
         let reactMarkDown = null;
+        
         if(this.state.bookChapterList.length > 0 &&　this.state.currentChapter !== "" && this.state.displayFlag){
             const source = this.state.currentChapter;
             reactMarkDown =  <div className="chapter-markdown">
@@ -65,15 +71,15 @@ class Chapter extends Component{
         }else{
             reactMarkDown = <div className="no-pay-container">
                                 <Tips tip={this.state.tip}></Tips>
-                                <p 
-                                    className="pay-btn"
-                                >点我购买</p>
                             </div>
         }
         return(
             <div className="chapter-container">
                 <div className="chapter-scroll-container">
                     {reactMarkDown}
+                    <p 
+                        className="pay-btn"
+                    >点我购买</p>
                 </div>
                 <div className="chapter-content-footer">
                     <i className="icon iconfont icon-left" onClick={this.prev}></i>

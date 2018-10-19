@@ -24,17 +24,20 @@
             @extend .justify-content-c;
             @extend .align-items-c;
             height: 100%;
-            .pay-btn{
-                height: 0.8rem;
-                width: 2rem;
-                text-align: center;
-                font-size: 26px;
-                line-height:  0.8rem;
-                margin-bottom: 1rem;
-                @include radius(0.4rem);
-                color: #fff;
-                background-color: #007fff;
-            }
+        }
+        .pay-btn{
+            height: 0.8rem;
+            width: 2rem;
+            text-align: center;
+            font-size: 26px;
+            line-height:  0.8rem;
+            @include radius(0.4rem);
+            color: #fff;
+            background-color: #007fff;
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
         }
     }
     .chapter-content-footer{

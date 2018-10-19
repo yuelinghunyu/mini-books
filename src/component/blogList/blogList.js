@@ -13,7 +13,6 @@ class BlogList extends Component {
     constructor(props){
         super(props)
         this.state = {
-            swiperList:[require("../../../static/img/banner1.jpg"),require("../../../static/img/banner2.jpg"),require("../../../static/img/banner3.jpg")],
             currentIndex:0,
             bannerList:[],
             bookTypeList:[],

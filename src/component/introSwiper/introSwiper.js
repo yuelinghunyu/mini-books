@@ -3,6 +3,9 @@ import ReactSwipe from 'react-swipe'
 import "./introSwiper.scss";
 import PropTypes from "prop-types";
 import {getIntroMd} from "../../server/api";
+import ShowImg from '../showImg/showImg';
+import "../showImg/hammer.min.js";
+import "../showImg/hammer-pic.js";
 
 //此组件有目录和介绍组成;
 
@@ -16,6 +19,7 @@ class IntroSwiper extends Component{
             currentIndex:0,
             isClick:true,
             isPay:false,
+            picShow:"",
             option:{
                 speed: 400,
                 continuous: false,
@@ -113,6 +117,7 @@ class IntroSwiper extends Component{
                         </div>
                     </ReactSwipe>
                 </div>
+                <ShowImg pics={this.state.picShow}></ShowImg>
             </div>
         )
     }
@@ -124,7 +129,23 @@ class IntroSwiper extends Component{
             let showdown  = require('showdown');
             let converter = new showdown.Converter();
             document.getElementsByClassName("intro-description")[0].innerHTML = converter.makeHtml(res.data);
-        })
+
+
+            //图片预览;
+            let imgs = document.getElementsByTagName("img");
+            let that = this;
+            for(let i=0;i<imgs.length;i++){
+                imgs[i].addEventListener("click",function(){
+                    that.setState({
+                        picShow:this.src
+                    })
+                    document.getElementsByClassName("img-container")[0].style.display = 'block';
+                    let pic = new Pic('.m-pic');
+                    pic.picInit();
+                })
+            }
+        });
+        
     }
     componentDidMount(){
        const totalH = document.getElementsByClassName("brochure-container")[0].clientHeight;
