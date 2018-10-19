@@ -18,7 +18,7 @@ class Book extends Component{
         console.log(ev.target);
         if(id !== null && flag === null){//跳转页面
             console.log("跳转");
-            const path = "/brochure/"+id;
+            const path = "/brochure/"+id+"/"+"nopay";
             this.context.router.history.push(path);
         }else{//直接微信支付
             console.log("支付");

@@ -19,7 +19,7 @@ class RouterIndex extends Component{
                 <Route path="/home" component={Content} />
                 <Route path="/saled" component={Saled} />
                 <Route path="/personal" component={Personal} />
-                <Route path="/brochure/:id" component={Brochure}/>
+                <Route path="/brochure/:id/:pay" component={Brochure}/>
             </Switch>
         )
     }

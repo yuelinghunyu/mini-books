@@ -16,11 +16,15 @@ class Brochure extends Component{
         this.state = {
             bookDes:{},
             payers:[],
-            bookIntro:{}
+            bookIntro:{},
+            payOrNoPay:""
         }
     }
     componentWillMount(){
         const params = this.props.match.params;
+        this.setState({
+            payOrNoPay:params.pay
+        })
         getBook(params).then(res=>{
             if(res.data.code === ERROR_OK){
                const book = res.data.data;
@@ -44,14 +48,14 @@ class Brochure extends Component{
     render(){
         let bookIntro=null;
         if(this.state.bookIntro.chapters !== undefined){
-            bookIntro = <IntroSwiper bookIntro={this.state.bookIntro}></IntroSwiper>
+            bookIntro = <IntroSwiper bookIntro={this.state.bookIntro} payFlag={this.state.payOrNoPay}></IntroSwiper>
         }
         return(
             <div className="brochure-container">
                 <div>
                     <BookDes bookDes={this.state.bookDes}></BookDes>
                     <Payers payers={this.state.payers}></Payers>
-                    <Operate></Operate>
+                    <Operate payFlag={this.state.payOrNoPay}></Operate>
                     {bookIntro}
                 </div>
             </div>

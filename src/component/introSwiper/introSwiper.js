@@ -18,7 +18,6 @@ class IntroSwiper extends Component{
         this.state = {
             currentIndex:0,
             isClick:true,
-            isPay:false,
             picShow:"",
             option:{
                 speed: 400,
@@ -59,20 +58,32 @@ class IntroSwiper extends Component{
         ev.preventDefault();
         const id = this.context.router.route.match.params.id;
         let flag = false;//支持试读
-        if(index === 0 || index === this.props.bookIntro.chapters.length - 1){
+        if(this.props.payFlag === "payed" || (index === 0 || index === this.props.bookIntro.chapters.length - 1)){
             flag = true;
         }
-        const path = "/chapter/"+id+"/"+chapterId+"/"+flag;
+        if(this.props.payFlag === "payed"){
+            let history = {}
+            if(localStorage.getItem("history")){
+                history = JSON.parse(localStorage.getItem("history"));
+                history[id] = chapterId;
+            }else{
+                history[id] = chapterId;
+            }
+            localStorage.setItem("history",JSON.stringify(history));
+        }
+        const path = "/chapter/"+id+"/"+chapterId+"/"+this.props.payFlag+"/"+flag;
         this.context.router.history.push(path);
     }
     render(){
         let pane1 = [];
         this.props.bookIntro.chapters.map((chapter,index)=>{
             let i = null;
-            if((index === 0 || index === this.props.bookIntro.chapters.length-1)&& !this.state.isPay){
+            if((index === 0 || index === this.props.bookIntro.chapters.length-1)&& (this.props.payFlag === "nopay")){
                 i = <i className="chapter-is-pay try">试读</i>
-            }else if(!this.state.isPay){
+            }else if (this.props.payFlag === "nopay"){
                 i = <i className="chapter-is-pay icon iconfont icon-suo"></i>
+            }else{
+                i = <i></i>
             }
             let li = <li 
                         className="chapter-item" 

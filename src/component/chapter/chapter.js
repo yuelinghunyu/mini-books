@@ -46,10 +46,11 @@ class Chapter extends Component{
         let flag = false;//支持试读
         const chapterId = this.state.bookChapterList[this.state.currentIndex].id;
         const bookId = this.context.router.route.match.params.bookId;
-        if(this.state.currentIndex === 0 || this.state.currentIndex === this.state.bookChapterList.length - 1){
+        const payed = this.context.router.route.match.params.pay;
+        if(payed || (this.state.currentIndex === 0 || this.state.currentIndex === this.state.bookChapterList.length - 1)){
             flag = true;
         }
-        const path = "/chapter/"+bookId+"/"+chapterId+"/"+flag;
+        const path = "/chapter/"+bookId+"/"+chapterId+"/"+payed+"/"+flag;
         this.context.router.history.replace(path);
         window.location.reload();
     }
@@ -57,7 +58,8 @@ class Chapter extends Component{
     backIntro(ev){
         ev.preventDefault();
         const id = this.context.router.route.match.params.bookId;
-        const path = "/brochure/"+id;
+        const payed = this.context.router.route.match.params.pay;
+        const path = "/brochure/"+id+"/"+payed;
         this.context.router.history.push(path);
     }
     render(){
