@@ -29,7 +29,12 @@ module.exports={
             },
             {
                 test:/\.(ttf|svg|woff|eot|woff2)$/,
-                use:["file-loader"]
+                use:[{
+                    loader:"file-loader",
+                    options:{
+                        name:"static/font/[name].[ext]?[hash]"
+                    }
+                }]
             },
             {
                 test:/\.css$/,
@@ -44,7 +49,7 @@ module.exports={
                 })
             },
             {
-                test:/\.js$/,
+                test:/\.(js|jsx)$/,
                 exclude:/(node_modules)/,
                 use:[
                     {loader:'babel-loader'},

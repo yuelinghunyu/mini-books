@@ -1,0 +1,26 @@
+@import '../../../static/common/base.scss';
+.loading-container{
+    width: 100%;
+    height: 400px;
+    @extend .flex-1;
+    @extend .flex-direction-o;
+    @extend .align-items-c;
+    @extend .justify-content-c;
+    overflow: hidden;
+   
+    span:nth-child(1){
+        display: block;
+        width: 30px;
+        height: 30px;
+        background: url('../../../static/img/loading.gif') no-repeat center;
+        background-size: cover;
+        margin: 120px auto 0px;
+    }
+    span:nth-child(2){
+        display: block;
+        width: 100%;
+        line-height: 50px;
+        text-align: center;
+        font-size: 26px;
+    }
+}

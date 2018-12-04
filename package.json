@@ -29,11 +29,14 @@
     "babel-preset-stage-0": "^6.24.1",
     "chalk": "^2.4.1",
     "css-loader": "^1.0.0",
+    "es2015": "0.0.0",
     "events": "^3.0.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^2.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "iscroll": "^5.2.0",
+    "iscroll-luo": "^1.2.3",
     "markdown": "^0.5.0",
     "marked": "^0.5.1",
     "mini-css-extract-plugin": "^0.4.2",
@@ -50,7 +53,6 @@
     "react-dom": "^16.5.0",
     "react-fastclick": "^3.0.2",
     "react-markdown": "^4.0.3",
-    "react-pullload": "^1.1.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-swipe": "^5.1.1",
@@ -74,5 +76,11 @@
         "proList": []
       }
     }
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
   }
 }

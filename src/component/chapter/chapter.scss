@@ -13,11 +13,6 @@
         position: relative;
         overflow: hidden;
         overflow-y: auto;
-        .chapter-markdown{
-            width: 90%;
-            margin: 20px auto;
-            font-size: 30px;
-        }
         .no-pay-container{
             @extend .flex-o;
             @extend .flex-direction-o;
@@ -61,3 +56,4 @@
         }
     }
 }
+@import '../../../static/common/markdown.scss';

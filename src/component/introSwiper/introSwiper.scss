@@ -1,5 +1,4 @@
 @import '../../../static/common/base.scss';
-@import '../../../static/common/markdown.scss';
 .intro-chapter-container{
     background-color: #fff;
     @extend .flex-o;
@@ -88,10 +87,7 @@
                     }
                 }
            }
-           .intro-description{
-                width: 90%;
-                margin: 20px auto
-           }
        }
     }
 }
+@import '../../../static/common/markdown.scss';

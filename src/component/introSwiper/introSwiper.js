@@ -123,7 +123,9 @@ class IntroSwiper extends Component{
                         </div>
                         <div className="box">
                             <div className="chapter-scroll">
-                                <div className="intro-description"></div>
+                                <div className="intro-description">
+                                    <div id='mark-down-container'></div>
+                                </div>
                             </div>
                         </div>
                     </ReactSwipe>
@@ -139,7 +141,7 @@ class IntroSwiper extends Component{
         getIntroMd(params).then((res)=>{
             let showdown  = require('showdown');
             let converter = new showdown.Converter();
-            document.getElementsByClassName("intro-description")[0].innerHTML = converter.makeHtml(res.data);
+            document.getElementById('mark-down-container').innerHTML = converter.makeHtml(res.data);
 
 
             //图片预览;

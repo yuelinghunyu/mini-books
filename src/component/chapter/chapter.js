@@ -5,6 +5,9 @@ import {getIntroMd,getBook} from "../../server/api";
 import {ERROR_OK,indexOf} from "../../config/utils";
 import ReactMarkdown from "react-markdown";
 import Tips from "../tips/tips";
+import ShowImg from '../showImg/showImg';
+import "../showImg/hammer.min.js";
+import "../showImg/hammer-pic.js";
 
 class Chapter extends Component{
     static contextTypes = {
@@ -17,7 +20,8 @@ class Chapter extends Component{
             displayFlag:false,
             tip:"我想阅读",
             currentIndex:0,
-            currentChapter:""
+            currentChapter:"",
+            picShow:"",
         }
         this.next = this.next.bind(this);
         this.prev = this.prev.bind(this);
@@ -47,7 +51,7 @@ class Chapter extends Component{
         const chapterId = this.state.bookChapterList[this.state.currentIndex].id;
         const bookId = this.context.router.route.match.params.bookId;
         const payed = this.context.router.route.match.params.pay;
-        if(payed || (this.state.currentIndex === 0 || this.state.currentIndex === this.state.bookChapterList.length - 1)){
+        if(payed && (this.state.currentIndex === 0 || this.state.currentIndex === this.state.bookChapterList.length - 1)){
             flag = true;
         }
         const path = "/chapter/"+bookId+"/"+chapterId+"/"+payed+"/"+flag;
@@ -67,7 +71,7 @@ class Chapter extends Component{
         
         if(this.state.bookChapterList.length > 0 &&　this.state.currentChapter !== "" && this.state.displayFlag){
             const source = this.state.currentChapter;
-            reactMarkDown =  <div className="chapter-markdown">
+            reactMarkDown =  <div id='mark-down-container'>
                                 <ReactMarkdown source={source}></ReactMarkdown>
                             </div>
         }else{
@@ -88,6 +92,7 @@ class Chapter extends Component{
                     <i className="icon iconfont icon-menu" onClick={this.backIntro}></i>
                     <i className="icon iconfont icon-right" onClick={this.next}></i>
                 </div>
+                <ShowImg pics={this.state.picShow}></ShowImg>
             </div>
         )
     }
@@ -124,6 +129,19 @@ class Chapter extends Component{
             this.setState({
                 currentChapter:res.data
             })
+            //图片预览;
+            let imgs = document.getElementsByTagName("img");
+            let that = this;
+            for(let i=0;i<imgs.length;i++){
+                imgs[i].addEventListener("click",function(){
+                    that.setState({
+                        picShow:this.src
+                    })
+                    document.getElementsByClassName("img-container")[0].style.display = 'block';
+                    let pic = new Pic('.m-pic');
+                    pic.picInit();
+                })
+            }
         });
     }
 }

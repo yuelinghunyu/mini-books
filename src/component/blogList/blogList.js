@@ -3,10 +3,11 @@ import ReactSwipe from 'react-swipe';
 import BlogFrom from '../blogFrom/blogFrom';
 import Header from "../header/header";
 import Tips from "../tips/tips";
+import Loading from '../loading/loading';
 import "./blogList.scss";
 
 import axios from "axios";
-import {getBannerList, getBookTypeList,getBlogList} from "../../server/api";
+import {getBannerList, getBookTypeList,getBookTypeTotal,getBlogList} from "../../server/api";
 import {ERROR_OK} from "../../config/utils";
 
 class BlogList extends Component {
@@ -25,17 +26,50 @@ class BlogList extends Component {
                 transitionEnd: ((index, elem)=>{
                     this.transitionEndCallback(index,elem);
                 }),
-            }
+            },
+            bookType:-1,
+            loading:false,
+            loadMsg:'正在加载...'
         }
     }
     handleSetBookType(bookType){
+        this.setState({
+            loading:false
+        })
+        let type = -1
+        if(bookType !== 0){
+            type = bookType
+        }
         const param = {
-            bookType:bookType
+            blogType:type
+        }
+        this.setState({
+            bookType:type 
+        })
+        getBlogList(param).then((res)=>{
+            if(res.data.code === ERROR_OK){
+                this.setState({
+                    blogList:res.data.data.list
+                },()=>{
+                    this.setState({
+                        loading:true
+                    })
+                })
+            }
+        })
+    }
+    handleRefresh(){
+        const param = {
+            blogType:this.state.bookType
         }
         getBlogList(param).then((res)=>{
             if(res.data.code === ERROR_OK){
                 this.setState({
-                    blogList:res.data.data
+                    blogList:res.data.data.list
+                },()=>{
+                    this.setState({
+                        loading:true
+                    })
                 })
             }
         })
@@ -44,7 +78,7 @@ class BlogList extends Component {
         let divList = [],spanList=[];
         let swiper = null;
         let header = null;
-        let blogFrom = null;
+        let content = null;
         if(this.state.bannerList.length > 0 && this.state.bookTypeList.length > 0){
             this.state.bannerList.map((item,index)=>{
                 divList.push(<div className="blog-scroll" key={item.id}>
@@ -59,11 +93,21 @@ class BlogList extends Component {
                             bookTypeList={this.state.bookTypeList}
                             handleSetBookType = { this.handleSetBookType.bind(this)}
                       ></Header>;
-            if(this.state.blogList.length === 0){
-                blogFrom = <Tips tip={this.state.tip}></Tips>
+          
+            if(this.state.loading){
+                if(this.state.blogList.length === 0){
+                    content = <Tips tip={this.state.tip}></Tips>
+                }else{
+                    content =  
+                    <BlogFrom 
+                            blogList={this.state.blogList}
+                            handleRefresh={this.handleRefresh.bind(this)}
+                    ></BlogFrom>;       
+                }
             }else{
-                blogFrom =  <BlogFrom blogList={this.state.blogList}></BlogFrom>;       
+                content = <Loading loadMsg={this.state.loadMsg}></Loading>
             }
+           
         }
        
         return(
@@ -75,7 +119,7 @@ class BlogList extends Component {
                 <div className="blog-list">
                     {header}
                     <div className="blog-item-container">
-                        {blogFrom}
+                        {content}
                     </div>
                 </div>
             </div>
@@ -88,16 +132,32 @@ class BlogList extends Component {
     }
 
     componentWillMount(){
-        const param = {bookType:0}
-        axios.all([getBannerList(),getBookTypeList(),getBlogList(param)]).then(
-            axios.spread((bannerList,bookTypeList,blogList)=>{
-                if(bannerList.data.code === ERROR_OK && bookTypeList.data.code === ERROR_OK && blogList.data.code === ERROR_OK){
-                    this.setState({
-                        bannerList:bannerList.data.data,
-                        bookTypeList:bookTypeList.data.data,
-                        blogList:blogList.data.data
-                    })
+        axios.all([getBannerList({type:2}),getBookTypeTotal(),getBlogList({})]).then(
+            axios.spread((bannerList,bookTypeTotal,blogList)=>{
+                const param ={
+                    page:1,
+                    limit:bookTypeTotal.data.data
                 }
+                getBookTypeList(param).then(res=>{
+                    if(bannerList.data.code === ERROR_OK && res.data.code === ERROR_OK && blogList.data.code === ERROR_OK){
+                        let list = res.data.data.list;
+                        const all = {
+                            id:'all',
+                            typeId:0,
+                            typeTitle:'全部'
+                        }
+                        list.unshift(all);
+                        this.setState({
+                            bannerList:bannerList.data.data.list,
+                            bookTypeList:list,
+                            blogList:blogList.data.data.list
+                        },()=>{
+                            this.setState({
+                                loading:true
+                            })
+                        })
+                    }
+                })
             })
         )
     }

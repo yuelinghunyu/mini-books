@@ -11,7 +11,7 @@ class Header extends Component{
         super(props);
         this.state = {
             index:0,
-            bookTypeList:[{id:guid(),title:"全部", bookType:0}]
+            bookTypeList:[]
         };
         this.activeEvent = this.activeEvent.bind(this);
     }
@@ -23,23 +23,14 @@ class Header extends Component{
     }
     render(){
         let liList = []
-        this.state.bookTypeList.map((type,index)=>{
-            liList.push(<li 
-                key={index}
-                className={index==this.state.index?"li-item active":"li-item"}
-                onClick={this.activeEvent.bind(this,index,type.bookType)}
-                data-type={type.bookType}
-                data-index= {index}
-            >{type.title}</li>)
-        });
         this.props.bookTypeList.map((type,index)=>{
             liList.push(<li 
                 key={index+1}
-                className={(index+1)==this.state.index?"li-item active":"li-item"}
-                onClick={this.activeEvent.bind(this,index+1,type.bookType)}
-                data-type={type.bookType}
-                data-index= {index+1}
-            >{type.title}</li>)
+                className={index==this.state.index?"li-item active":"li-item"}
+                onClick={this.activeEvent.bind(this,index,type.typeId)}
+                data-type={type.typeId}
+                data-index= {index}
+            >{type.typeTitle}</li>)
         });
         return(
             <div className="header-top">
