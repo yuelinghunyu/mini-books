@@ -6,7 +6,7 @@ import Operate from "../operate/operate";
 import IntroSwiper from "../introSwiper/introSwiper";
 
 
-import {getBook} from "../../server/api";
+import {getBookList} from "../../server/api";
 import {ERROR_OK} from "../../config/utils";
 
 //单个典籍的入口介绍页；
@@ -25,9 +25,9 @@ class Brochure extends Component{
         this.setState({
             payOrNoPay:params.pay
         })
-        getBook(params).then(res=>{
+        getBookList(params).then(res=>{
             if(res.data.code === ERROR_OK){
-               const book = res.data.data;
+               const book = res.data.data.list[0];
                this.setState({
                    bookDes:{
                        id:book.id,
@@ -36,9 +36,9 @@ class Brochure extends Component{
                        author:book.author,
                        description:book.description
                    },
-                   payers:book.payers,
+                   payers:book.payersList,
                    bookIntro:{
-                       chapters:book.chapters,
+                       chapters:book.chaptersList,
                        introUrl:book.introUrl
                    }
                })

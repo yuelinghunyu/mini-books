@@ -39,7 +39,7 @@ class Book extends Component{
                     <span
                         className="total-calc"
                         id={book.id}
-                    >{parseInt(book.chapters.length)}小节 . {parseInt(book.payers.length)}人已赞助</span>
+                    >{parseInt(book.chaptersList.length)}小节 . {parseInt(book.payersList.length)}人已赞助</span>
                 </div>
                 <div className="book-price" id={book.id} flag="pay">￥{parseFloat(book.price)}</div>
             </li>

@@ -4,22 +4,11 @@ const headers = {
 }
 const baseUrl = "/mso"
 // 获取微信用户;
-const getUser = (param)=>{
-    const url = baseUrl + '/users/list';
-    return axios.get(url,{
-        headers:headers,
-        params:param
-    }).then((res)=>{
-        return Promise.resolve(res)
-    }).catch((error)=>{
-        return Promise.reject(error);
-    })
-}
 
 // 获取介绍页面md文件；
 const getIntroMd = (param)=>{
-    const url = param.url;
-    return axios.get(url,{params:param}).then((res)=>{
+    const url = decodeURIComponent(param.url);
+    return axios.get(url).then((res)=>{
         return Promise.resolve(res)
     }).catch((error)=>{
         return Promise.reject(error);
@@ -94,13 +83,16 @@ const getUserInfo = (params)=>{
         return Promise.reject(error);
     })
 }
+const getUser = ()=>{
+    return "6a8db3a6097d4687bf3e29fb2c24cfaf"
+}
 export {
-    getUser,
     getIntroMd,
     getBannerList,
     getBookTypeList,
     getBlogList,
     getBookList,
     getUserInfo,
-    getBookTypeTotal
+    getBookTypeTotal,
+    getUser
 }

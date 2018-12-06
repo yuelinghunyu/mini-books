@@ -8,11 +8,14 @@ class Payers extends Component{
     }
     render(){
         const totalList = this.props.payers;
-        const list = totalList.slice(0,5).map((user,index)=>
-            <li className="payers-user-item" id={user.wxId} key={index}>
-                <img className="payers-user-logo" alt="logo" src={user.logo} />
-            </li>
-        )
+        let list = null;
+        if(totalList.length > 0){
+            list = totalList.slice(0,5).map((user,index)=>
+                <li className="payers-user-item" id={user.wxId} key={index}>
+                    <img className="payers-user-logo" alt="logo" src={user.logo} />
+                </li>
+            )
+        }
         return(
            <div className="payers-container">
                 <div className="payers-count">

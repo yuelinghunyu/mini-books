@@ -28,20 +28,19 @@ class Saled extends Component{
         )
     }
     componentWillMount(){
-        const wxId = getUser().wxId;
         const bookListParam = {
-            bookType:0
+            bookType:-1
         }
         const userParam = {
-            wxId:wxId
+            wxId:getUser()
         }
         axios.all([getBookList(bookListParam),getUserInfo(userParam)]).then(
             axios.spread((bookList,users)=>{
                 if(bookList.data.code === ERROR_OK && users.data.code === ERROR_OK){
                     const type = Object.prototype.toString.call(users.data.data);
-                    if(bookList.data.data.length > 0 && type === "[object Object]" && users.data.data.books.length>0){
-                        const usersPayBooks = users.data.data.books;
-                        const totalBookList = bookList.data.data;
+                    if(bookList.data.data.list.length > 0 && type === "[object Object]" && users.data.data.list.length>0){
+                        const usersPayBooks = users.data.data.list;
+                        const totalBookList = bookList.data.data.list;
                         let splitBookList = [];
                         usersPayBooks.forEach(bookId => {
                             splitBookList.push(add(totalBookList,bookId)[0]);
