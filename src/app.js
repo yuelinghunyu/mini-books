@@ -48,7 +48,7 @@ class App extends Component{
                     <RouterIndex></RouterIndex>
                     <Footer></Footer>
                     <Route path="/chapter/:bookId/:chapterId/:pay/:flag" component={Chapter}/>
-                    <Route path="/feedback" component={Feedback}></Route>
+                    <Route path="/feedback/:wechatId/:wechatName/" component={Feedback}></Route>
                 </div>
             </Router>
         )

@@ -27,7 +27,7 @@ class BookDes extends Component{
                         {book.description}
                     </span>
                     <div className="des-user-container">
-                        <img className="des-user-logo" src={this.state.user.logo} alt="logo"/>
+                        <img className="des-user-logo" src={book.logo} alt="logo"/>
                         <span>{book.author}</span>
                     </div>    
                 </div>

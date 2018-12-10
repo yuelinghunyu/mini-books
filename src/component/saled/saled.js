@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import './saled.scss';
 import SaledBooks from "../saledBooks/saledBooks"
-import {getUser,getBookList,getUserInfo} from "../../server/api";
+import {getUser,getBookList,getPayersInfo} from "../../server/api";
 import {ERROR_OK,add} from "../../config/utils";
 import axios from "axios";
 import Tips from "../tips/tips";
@@ -32,9 +32,9 @@ class Saled extends Component{
             bookType:-1
         }
         const userParam = {
-            wxId:getUser()
+            wechatId:getUser().wechatId
         }
-        axios.all([getBookList(bookListParam),getUserInfo(userParam)]).then(
+        axios.all([getBookList(bookListParam),getPayersInfo(userParam)]).then(
             axios.spread((bookList,users)=>{
                 if(bookList.data.code === ERROR_OK && users.data.code === ERROR_OK){
                     const type = Object.prototype.toString.call(users.data.data);

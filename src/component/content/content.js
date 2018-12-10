@@ -4,7 +4,7 @@ import Book from "../book/book";
 import Header from "../header/header";
 import Tips from "../tips/tips";
 import axios from "axios";
-import {getUser,getBookTypeList,getBookList,getUserInfo,getBookTypeTotal} from "../../server/api";
+import {getUser,getBookTypeList,getBookList,getPayersInfo,getBookTypeTotal} from "../../server/api";
 import {ERROR_OK,remove} from "../../config/utils";
 
 class Content extends Component{
@@ -39,7 +39,7 @@ class Content extends Component{
     }
     handleSetBookType(bookType){
         const userParam = {
-            wxId:getUser()
+            wechatId:getUser().wechatId
         }
         if(bookType === 0){
             bookType = -1
@@ -47,7 +47,7 @@ class Content extends Component{
         const param = {
             bookType:bookType
         }
-        axios.all([getBookList(param),getUserInfo(userParam)]).then(
+        axios.all([getBookList(param),getPayersInfo(userParam)]).then(
             axios.spread((bookList,users)=>{
                 if(bookList.data.code === ERROR_OK && users.data.code === ERROR_OK){
                     const type = Object.prototype.toString.call(users.data.data);
@@ -75,7 +75,7 @@ class Content extends Component{
             bookType:-1
         }
         const userParam = {
-            wxId:getUser()
+            wechatId:getUser().wechatId
         }
         getBookTypeTotal().then(res=>{
             if(res.data.code === ERROR_OK){
@@ -83,7 +83,7 @@ class Content extends Component{
                     page:1,
                     limit:res.data.data
                 }
-                axios.all([getBookTypeList(param),getBookList(bookListParam),getUserInfo(userParam)]).then(
+                axios.all([getBookTypeList(param),getBookList(bookListParam),getPayersInfo(userParam)]).then(
                     axios.spread((bookTypeList,bookList,users)=>{
                         if(bookTypeList.data.code === ERROR_OK && bookList.data.code === ERROR_OK && users.data.code === ERROR_OK){
                             const type = Object.prototype.toString.call(users.data.data);

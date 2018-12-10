@@ -33,7 +33,7 @@ class Operate extends Component{
             panel1 = <span className="go-on">{this.state.readerText}</span>
         }else{
             panel1 = <span className="try-read">试读</span>
-            panel2 = <span className="pay-for-price">购买 ￥9.9</span>
+            panel2 = <span className="pay-for-price">购买 ￥{this.props.price}</span>
         }
         return(
             <div className="operate-container">

@@ -58,11 +58,19 @@ const throttle = (fn, delay)=>{
         }
     };
 }
+
+const getQueryString = (name)=>{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+
 export {
     guid,
     ERROR_OK,
     remove,
     add,
     throttle,
-    indexOf
+    indexOf,
+    getQueryString
 }

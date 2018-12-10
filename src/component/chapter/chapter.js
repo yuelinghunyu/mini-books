@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import PropTypes from "prop-types";
 import "./chapter.scss";
-import {getIntroMd,getBook} from "../../server/api";
+import {getIntroMd,getBookList} from "../../server/api";
 import {ERROR_OK,indexOf} from "../../config/utils";
 import ReactMarkdown from "react-markdown";
 import Tips from "../tips/tips";
@@ -106,11 +106,12 @@ class Chapter extends Component{
         this.setState({
             displayFlag:flag
         })
-        getBook(book).then((res)=>{
+        getBookList(book).then((res)=>{
             if(res.data.code === ERROR_OK){
                 this.setState({
-                    bookChapterList:res.data.data.chapters,
+                    bookChapterList:res.data.data.list[0].chaptersList,
                 });
+                
                 const currentIndex=indexOf(this.state.bookChapterList,chapterId)
                 this.setState({
                     currentIndex:currentIndex,
@@ -126,9 +127,12 @@ class Chapter extends Component{
     //解析markdown文件;
     getIntroMd(param){
         getIntroMd(param).then((res)=>{
-            this.setState({
-                currentChapter:res.data
-            })
+            if(res.data.code === ERROR_OK){
+                this.setState({
+                    currentChapter:res.data.data.content
+                })
+            }
+           
             //图片预览;
             let imgs = document.getElementsByTagName("img");
             let that = this;

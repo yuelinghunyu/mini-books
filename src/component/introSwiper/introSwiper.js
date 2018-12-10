@@ -6,6 +6,7 @@ import {getIntroMd} from "../../server/api";
 import ShowImg from '../showImg/showImg';
 import "../showImg/hammer.min.js";
 import "../showImg/hammer-pic.js";
+import {ERROR_OK} from "../../config/utils";
 
 //此组件有目录和介绍组成;
 
@@ -139,11 +140,12 @@ class IntroSwiper extends Component{
             url:this.props.bookIntro.introUrl
         };
         getIntroMd(params).then((res)=>{
-            let showdown  = require('showdown');
-            let converter = new showdown.Converter();
-            document.getElementById('mark-down-container').innerHTML = converter.makeHtml(res.data);
-
-
+            if(res.data.code === ERROR_OK){
+                let showdown  = require('showdown');
+                let converter = new showdown.Converter();
+                document.getElementById('mark-down-container').innerHTML = converter.makeHtml(res.data.data.content);
+            }
+        
             //图片预览;
             let imgs = document.getElementsByTagName("img");
             let that = this;

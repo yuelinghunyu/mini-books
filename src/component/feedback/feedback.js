@@ -15,8 +15,16 @@ class Feedback extends Component{
             submitConfig:{
                 submiting:false,
                 submittext:"提交"
+            },
+            feedbackContent:{
+                content:"",
+
             }
         }
+    }
+    componentWillMount(){
+        const wechatId = this.context.router.route.match.params.wechatId;
+        const wechatName = this.context.router.route.match.params.wechatName;
     }
     activeEvent(ev,index){
         ev.preventDefault();

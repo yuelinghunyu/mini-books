@@ -34,7 +34,8 @@ class Brochure extends Component{
                        title:book.title,
                        logo:book.logo,
                        author:book.author,
-                       description:book.description
+                       description:book.description,
+                       price:book.price
                    },
                    payers:book.payersList,
                    bookIntro:{
@@ -55,7 +56,7 @@ class Brochure extends Component{
                 <div>
                     <BookDes bookDes={this.state.bookDes}></BookDes>
                     <Payers payers={this.state.payers}></Payers>
-                    <Operate payFlag={this.state.payOrNoPay}></Operate>
+                    <Operate payFlag={this.state.payOrNoPay} price={this.state.bookDes.price}></Operate>
                     {bookIntro}
                 </div>
             </div>
