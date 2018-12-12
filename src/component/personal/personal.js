@@ -45,7 +45,6 @@ class Personal extends Component{
                     <span>已购</span>
                     <span>{this.state.payerTotal}本</span>
                 </div>
-                <div className='ancel-btn'>退出登录</div>
             </div>
         )
     }

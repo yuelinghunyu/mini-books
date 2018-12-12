@@ -3,6 +3,8 @@ import "./feedback.scss";
 import {throttle} from "../../config/utils";
 import emitter from "../../config/events";
 import PropTypes from "prop-types";
+import {setFeedBack} from "../../server/api";
+import {ERROR_OK} from "../../config/utils";
 
 class Feedback extends Component{
     static contextTypes = {
@@ -16,15 +18,20 @@ class Feedback extends Component{
                 submiting:false,
                 submittext:"提交"
             },
-            feedbackContent:{
-                content:"",
-
-            }
+            wechatId:"",
+            wechatName:"",
+            feedType:2,
+            type:1,
+            content:""
         }
     }
     componentWillMount(){
         const wechatId = this.context.router.route.match.params.wechatId;
         const wechatName = this.context.router.route.match.params.wechatName;
+        this.setState({
+            wechatId:wechatId,
+            wechatName:wechatName,
+        })
     }
     activeEvent(ev,index){
         ev.preventDefault();
@@ -32,7 +39,11 @@ class Feedback extends Component{
         for(let i=0;i<circles.length;i++){
             circles[i].setAttribute("class","select-circle");
         }
-        circles[index].setAttribute("class","select-circle select-active");
+        circles[index-1].setAttribute("class","select-circle select-active");
+        this.setState({type:index})
+    }
+    textareaEvent(ev){
+        this.setState({content:ev.target.value})
     }
     submitEvent(){
         this.setState({
@@ -41,45 +52,55 @@ class Feedback extends Component{
                 submittext:"正在提交,请稍后~"
             }
         });
-        setTimeout(()=>{
-            emitter.emit("showWarn",{
-                warnText:"提交成功,感谢你的支持~",
-                warnFlag:"success",
-                hideFlag:true,
-            });
-            setTimeout(()=>{
-                this.setState({
-                    submitConfig:{
-                        submiting:false,
-                        submittext:"提交"
-                    }
-                });
+
+        const params = {
+            wechatId:this.state.wechatId,
+            wechatName:this.state.wechatName,
+            feedType:2,
+            type:this.state.type,
+            content:this.state.content
+        }
+        setFeedBack(params).then(res=>{
+            if(res.data.code === ERROR_OK){
                 emitter.emit("showWarn",{
                     warnText:"提交成功,感谢你的支持~",
                     warnFlag:"success",
-                    hideFlag:false,
+                    hideFlag:true,
                 });
-                const path = "/personal";
-                this.context.router.history.push(path);
-            },3000)
-        },3000)
+                setTimeout(()=>{
+                    this.setState({
+                        submitConfig:{
+                            submiting:false,
+                            submittext:"提交"
+                        }
+                    });
+                    emitter.emit("showWarn",{
+                        warnText:"提交成功,感谢你的支持~",
+                        warnFlag:"success",
+                        hideFlag:false,
+                    });
+                    const path = "/personal";
+                    this.context.router.history.push(path);
+                },2000)
+            }
+        })
     }
     render(){
         return(
             <div className="feedback-container">
-                <textarea placeholder="请写下您的意见或建议"></textarea>
+                <textarea placeholder="请写下您的意见或建议" onInput={this.textareaEvent.bind(this)}></textarea>
                 <div className="select-type-container">
                     <h4>请选择反馈类型</h4>
                     <div className="select-type-group">
-                        <p className="select-type-item" onClick={(ev)=>{this.activeEvent(ev,0)}}>
+                        <p className="select-type-item" onClick={(ev)=>{this.activeEvent(ev,1)}}>
                             <span className="select-circle select-active"></span>
                             <span className="select-text">功能建议</span>
                         </p>
-                        <p className="select-type-item" onClick={(ev)=>{this.activeEvent(ev,1)}}>
+                        <p className="select-type-item" onClick={(ev)=>{this.activeEvent(ev,2)}}>
                             <span className="select-circle"></span>
                             <span className="select-text">程序bug</span>
                         </p>
-                        <p className="select-type-item" onClick={(ev)=>{this.activeEvent(ev,2)}}>
+                        <p className="select-type-item" onClick={(ev)=>{this.activeEvent(ev,3)}}>
                             <span className="select-circle"></span>
                             <span className="select-text">其他</span>
                         </p>

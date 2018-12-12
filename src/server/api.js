@@ -103,6 +103,20 @@ const getUser = ()=>{
         wechatName:"四叶草"
     }
 }
+const setFeedBack = (params)=>{
+    let url = baseUrl + "/feed-back/set-feed-back";
+    let formData = new FormData()
+    for(let key in params){
+        formData.append(key,params[key])
+    }
+    return axios.post(url,formData,{
+        headers:headers
+    }).then((res)=>{
+        return Promise.resolve(res)
+    }).catch((error)=>{
+        return Promise.reject(error);
+    })
+}
 export {
     getIntroMd,
     getBannerList,
@@ -112,5 +126,6 @@ export {
     getPayersInfo,
     getBookTypeTotal,
     getUser,
-    getUserInfo
+    getUserInfo,
+    setFeedBack
 }
