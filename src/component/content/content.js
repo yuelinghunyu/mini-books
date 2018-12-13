@@ -6,6 +6,7 @@ import Tips from "../tips/tips";
 import axios from "axios";
 import {getUser,getBookTypeList,getBookList,getPayersInfo,getBookTypeTotal} from "../../server/api";
 import {ERROR_OK,remove} from "../../config/utils";
+import Loading from '../loading/loading';
 
 class Content extends Component{
     constructor(){
@@ -14,6 +15,8 @@ class Content extends Component{
             bookTypeList:[],
             bookContactList:[],
             tip:"敬请期待-_-",
+            loading:true,
+            loadMsg:'正在加载...'
         }
     }
     render(){
@@ -25,11 +28,16 @@ class Content extends Component{
                     handleSetBookType = { this.handleSetBookType.bind(this)}
             ></Header>;
         }
-        if(this.state.bookContactList.length === 0){
-            book = <Tips tip={this.state.tip}></Tips>
+        if(this.state.loading){
+            book = <Loading loadMsg={this.state.loadMsg}></Loading>
         }else{
-            book = <Book bookList = {this.state.bookContactList}></Book>;       
+            if(this.state.bookContactList.length === 0){
+                book = <Tips tip={this.state.tip}></Tips>
+            }else{
+                book = <Book bookList = {this.state.bookContactList}></Book>;       
+            }
         }
+        
         return(
             <div className="content-container">
                 {header}
@@ -38,6 +46,9 @@ class Content extends Component{
         )
     }
     handleSetBookType(bookType){
+        this.setState({
+            loading:true
+        })
         const userParam = {
             wechatId:getUser().wechatId
         }
@@ -60,12 +71,21 @@ class Content extends Component{
                         });
                         this.setState({
                             bookContactList:splitBookList,
+                        },()=>{
+                            this.setState({
+                                loading:false
+                            })
                         });
                     }else{
                         this.setState({
                             bookContactList:bookList.data.data.list,
+                        },()=>{
+                            this.setState({
+                                loading:false
+                            })
                         })
                     }
+
                 }
             })
         );
@@ -96,21 +116,33 @@ class Content extends Component{
                                 });
                                 this.setState({
                                     bookContactList:splitBookList,
+                                },()=>{
+                                    this.setState({
+                                        loading:false
+                                    })
                                 })
                             }else{
                                 this.setState({
                                     bookContactList:bookList.data.data.list,
+                                },()=>{
+                                    this.setState({
+                                        loading:false
+                                    })
                                 })
                             }
-                        let list = bookTypeList.data.data.list;
-                        const all = {
-                            id:'all',
-                            typeId:0,
-                            typeTitle:'全部'
-                        }
-                        list.unshift(all);
+                            let list = bookTypeList.data.data.list;
+                            const all = {
+                                id:'all',
+                                typeId:0,
+                                typeTitle:'全部'
+                            }
+                            list.unshift(all);
                             this.setState({
                                 bookTypeList:list,
+                            },()=>{
+                                this.setState({
+                                    loading:false
+                                })
                             })
                         }
                     })
