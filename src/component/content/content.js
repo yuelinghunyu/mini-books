@@ -67,7 +67,7 @@ class Content extends Component{
                         const totalBookList = bookList.data.data.list;
                         let splitBookList = [];
                         usersPayBooks.forEach(bookId => {
-                            splitBookList = remove(totalBookList,bookId)
+                            splitBookList = remove(totalBookList,bookId.books)
                         });
                         this.setState({
                             bookContactList:splitBookList,
@@ -112,7 +112,7 @@ class Content extends Component{
                                 const totalBookList = bookList.data.data.list;
                                 let splitBookList = [];
                                 usersPayBooks.forEach(bookId => {
-                                    splitBookList = remove(totalBookList,bookId)
+                                    splitBookList = remove(totalBookList,bookId.books)
                                 });
                                 this.setState({
                                     bookContactList:splitBookList,

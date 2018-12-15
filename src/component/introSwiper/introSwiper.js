@@ -62,17 +62,17 @@ class IntroSwiper extends Component{
         if(this.props.payFlag === "payed" || (index === 0 || index === this.props.bookIntro.chapters.length - 1)){
             flag = true;
         }
+        const path = "/chapter/"+id+"/"+chapterId+"/"+this.props.payFlag+"/"+flag;
         if(this.props.payFlag === "payed"){
             let history = {}
             if(localStorage.getItem("history")){
                 history = JSON.parse(localStorage.getItem("history"));
-                history[id] = chapterId;
+                history[id] = path;
             }else{
-                history[id] = chapterId;
+                history[id] = path;
             }
             localStorage.setItem("history",JSON.stringify(history));
-        }
-        const path = "/chapter/"+id+"/"+chapterId+"/"+this.props.payFlag+"/"+flag;
+        }     
         this.context.router.history.push(path);
     }
     render(){

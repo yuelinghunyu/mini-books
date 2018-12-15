@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import './book.scss';
 import PropTypes from "prop-types";
+import emitter from "../../config/events";
 
 class Book extends Component{
     static contextTypes = {
@@ -10,18 +11,21 @@ class Book extends Component{
         super(props)
         this.redirectBrochure = this.redirectBrochure.bind(this);
     }
-    redirectBrochure(ev){
+    redirectBrochure(ev,bookId){
         ev.preventDefault();
         ev.stopPropagation();
         const id = ev.target.getAttribute("id");
         const flag = ev.target.getAttribute("flag");
-        console.log(ev.target);
         if(id !== null && flag === null){//跳转页面
             console.log("跳转");
             const path = "/brochure/"+id+"/"+"nopay";
             this.context.router.history.push(path);
         }else{//直接微信支付
+            const price = parseFloat(ev.target.textContent.replace("￥",""))
+            console.log(price);
             console.log("支付");
+            const param = {bookId:bookId,price:price}
+            emitter.emit("payPrice",param)
         }
     }
     render(){
@@ -30,7 +34,7 @@ class Book extends Component{
                 className="book-item"
                 key={index}
                 id={book.id}
-                onClick={this.redirectBrochure}
+                onClick={(ev)=>{this.redirectBrochure(ev,book.id)}}
             >
                 <img src={book.logo} id={book.id}/>
                 <div className="book-des" id={book.id}>

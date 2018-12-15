@@ -43,7 +43,7 @@ class Saled extends Component{
                         const totalBookList = bookList.data.data.list;
                         let splitBookList = [];
                         usersPayBooks.forEach(bookId => {
-                            splitBookList.push(add(totalBookList,bookId)[0]);
+                            splitBookList.push(add(totalBookList,bookId.books)[0]);
                         });
                         this.setState({
                             bookContactList:splitBookList,

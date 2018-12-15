@@ -1,8 +1,7 @@
 import React,{Component} from 'react';
 import './personal.scss';
 import PropTypes from "prop-types";
-import axios from "axios";
-import {getUser,getPayersInfo,getUserInfo} from "../../server/api";
+import {getUser,getPayersInfo} from "../../server/api";
 import {ERROR_OK} from "../../config/utils";
 
 class Personal extends Component{
@@ -49,30 +48,23 @@ class Personal extends Component{
         )
     }
     componentWillMount(){
+        this.setState({
+            user:{
+                wechatId:getUser().wechatId,
+                wechatName:getUser().wechatName,
+                wechatLogo:getUser().wechatLogo
+            }
+        })
         const userParam = {
-            wechatName:getUser().wechatName
-        }
-        const payerParam = {
             wechatId:getUser().wechatId
         }
-        axios.all([getUserInfo(userParam),getPayersInfo(payerParam)]).then(
-            axios.spread((user,payer)=>{
-                if(user.data.code === ERROR_OK){
-                    this.setState({
-                        user:{
-                            wechatId:user.data.data.list[0].wechatId,
-                            wechatName:user.data.data.list[0].wechatName,
-                            wechatLogo:user.data.data.list[0].wechatLogo
-                        }
-                    })
-                }
-                if(payer.data.code === ERROR_OK){
-                    this.setState({
-                        payerTotal:payer.data.data.total
-                    })
-                }
-            })
-        )
+        getPayersInfo(userParam).then(res=>{
+            if(res.data.code === ERROR_OK){
+                this.setState({
+                    payerTotal:res.data.data.total
+                })
+            }
+        })
     }
 }
 export default Personal;

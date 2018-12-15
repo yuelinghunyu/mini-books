@@ -25,9 +25,25 @@ class Footer extends Component{
             this.setState({
                 index:1
             })
+        }else if(pathName.split("/")[1]=== "chapter" && pathName.split("/")[4]=== "nopay"){
+            this.setState({
+                index:1
+            })
+        }else if(pathName.split("/")[1]=== "brochure" && pathName.split("/")[3]=== "nopay"){
+            this.setState({
+                index:1
+            })
         }else if(pathName === "/saled"){
             this.setState({
                 index:2
+            })
+        }else if(pathName.split("/")[1]=== "chapter" && pathName.split("/")[4]=== "payed"){
+            this.setState({
+                index:2
+            })
+        }else if(pathName.split("/")[1]=== "brochure" && pathName.split("/")[3]=== "payed"){
+            this.setState({
+                index:1
             })
         }else if(pathName === "/personal"){
             this.setState({
@@ -43,7 +59,7 @@ class Footer extends Component{
         const index = parseInt(ev.target.getAttribute("data-index"));
         let path = "";
         if(index === 0){
-
+            path = "/blogList"
         }else if(index === 1){
             path = "/home"
         }else if(index === 2){

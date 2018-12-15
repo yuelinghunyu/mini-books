@@ -42,6 +42,9 @@ class Brochure extends Component{
                        chapters:book.chaptersList,
                        introUrl:book.introUrl
                    }
+               },()=>{
+                const chapterId = this.state.bookIntro.chapters[0].id;
+                window.localStorage.setItem("firstChapterId",chapterId)
                })
             }
         })

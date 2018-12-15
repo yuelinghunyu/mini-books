@@ -6,8 +6,10 @@ import {ERROR_OK,indexOf} from "../../config/utils";
 import ReactMarkdown from "react-markdown";
 import Tips from "../tips/tips";
 import ShowImg from '../showImg/showImg';
+import Loading from '../loading/loading';
 import "../showImg/hammer.min.js";
 import "../showImg/hammer-pic.js";
+import emmiter from '../../config/events'
 
 class Chapter extends Component{
     static contextTypes = {
@@ -22,6 +24,10 @@ class Chapter extends Component{
             currentIndex:0,
             currentChapter:"",
             picShow:"",
+            price:0,
+            payFlag:false,
+            loading:false,
+            loadMsg:'正在加载...'
         }
         this.next = this.next.bind(this);
         this.prev = this.prev.bind(this);
@@ -51,8 +57,14 @@ class Chapter extends Component{
         const chapterId = this.state.bookChapterList[this.state.currentIndex].id;
         const bookId = this.context.router.route.match.params.bookId;
         const payed = this.context.router.route.match.params.pay;
-        if(payed && (this.state.currentIndex === 0 || this.state.currentIndex === this.state.bookChapterList.length - 1)){
+        if(this.state.payFlag){
             flag = true;
+        }else{
+            if(this.state.currentIndex === 0 || this.state.currentIndex === this.state.bookChapterList.length - 1){
+                flag = true;
+            }else{
+                flag = false;
+            }
         }
         const path = "/chapter/"+bookId+"/"+chapterId+"/"+payed+"/"+flag;
         this.context.router.history.replace(path);
@@ -67,25 +79,34 @@ class Chapter extends Component{
         this.context.router.history.push(path);
     }
     render(){
-        let reactMarkDown = null;
-        
-        if(this.state.bookChapterList.length > 0 &&　this.state.currentChapter !== "" && this.state.displayFlag){
-            const source = this.state.currentChapter;
-            reactMarkDown =  <div id='mark-down-container'>
-                                <ReactMarkdown source={source}></ReactMarkdown>
-                            </div>
-        }else{
-            reactMarkDown = <div className="no-pay-container">
-                                <Tips tip={this.state.tip}></Tips>
-                            </div>
+        let reactMarkDown = null,pl=null;
+       
+        if(!this.state.payFlag){
+            pl =  <p 
+                className="pay-btn"
+                onClick={this.payPriceEvent.bind(this)}
+            >点我购买</p>
         }
+        if(this.state.loading){
+            reactMarkDown = <Loading loadMsg={this.state.loadMsg}></Loading>
+        }else{
+            if(this.state.bookChapterList.length > 0 &&　this.state.currentChapter !== "" && this.state.displayFlag){
+                const source = this.state.currentChapter;
+                reactMarkDown =  <div id='mark-down-container'>
+                                    <ReactMarkdown source={source}></ReactMarkdown>
+                                </div>
+            }else{
+                reactMarkDown = <div className="no-pay-container">
+                                    <Tips tip={this.state.tip}></Tips>
+                                </div>
+            }
+        }
+
         return(
             <div className="chapter-container">
                 <div className="chapter-scroll-container">
                     {reactMarkDown}
-                    <p 
-                        className="pay-btn"
-                    >点我购买</p>
+                    {pl}
                 </div>
                 <div className="chapter-content-footer">
                     <i className="icon iconfont icon-left" onClick={this.prev}></i>
@@ -96,20 +117,32 @@ class Chapter extends Component{
             </div>
         )
     }
+    payPriceEvent(){
+        const param = {bookId:this.context.router.route.match.params.bookId,price:this.state.price}
+        emmiter.emit("payPrice",param)
+    }
     componentWillMount(){
+        this.setState({
+            loading:true
+        })
+
         const bookId = this.context.router.route.match.params.bookId;
         const flag = JSON.parse(this.context.router.route.match.params.flag);
         const chapterId = this.context.router.route.match.params.chapterId;
+        const payed = this.context.router.route.match.params.pay;
         const book = {
             id:bookId
         }
         this.setState({
-            displayFlag:flag
+            displayFlag:flag,
+            payFlag:payed==="payed"?true:false
         })
         getBookList(book).then((res)=>{
             if(res.data.code === ERROR_OK){
+                const book = res.data.data.list[0]
                 this.setState({
-                    bookChapterList:res.data.data.list[0].chaptersList,
+                    bookChapterList:book.chaptersList,
+                    price:book.price
                 });
                 
                 const currentIndex=indexOf(this.state.bookChapterList,chapterId)
@@ -130,6 +163,10 @@ class Chapter extends Component{
             if(res.data.code === ERROR_OK){
                 this.setState({
                     currentChapter:res.data.data.content
+                },()=>{
+                    this.setState({
+                        loading:false
+                    })
                 })
             }
            
