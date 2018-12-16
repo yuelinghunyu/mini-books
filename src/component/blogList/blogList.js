@@ -4,7 +4,9 @@ import BlogFrom from '../blogFrom/blogFrom';
 import Header from "../header/header";
 import Tips from "../tips/tips";
 import Loading from '../loading/loading';
+import IscrollLuo from 'iscroll-luo';
 import "./blogList.scss";
+import "./refresh.scss";
 
 import axios from "axios";
 import {getBannerList, getBookTypeList,getBookTypeTotal,getBlogList} from "../../server/api";
@@ -28,6 +30,7 @@ class BlogList extends Component {
                 }),
             },
             bookType:-1,
+            page:1,
             loading:false,
             loadMsg:'正在加载...'
         }
@@ -62,6 +65,10 @@ class BlogList extends Component {
         const param = {
             blogType:this.state.bookType
         }
+        this.setState({
+            loading:false,
+            page:1
+        })
         getBlogList(param).then((res)=>{
             if(res.data.code === ERROR_OK){
                 this.setState({
@@ -73,6 +80,32 @@ class BlogList extends Component {
                 })
             }
         })
+    }
+    handleLoading(){
+        let count = this.state.page
+        this.setState({
+            loading:false,
+            page:++count
+        },()=>{
+            const param = {
+                blogType:this.state.bookType,
+                page:this.state.page
+            }
+            getBlogList(param).then((res)=>{
+                if(res.data.code === ERROR_OK){
+                    let array = res.data.data.list
+                    let newBlogList = this.state.blogList.concat(array)
+                    this.setState({
+                        blogList:newBlogList
+                    },()=>{
+                        this.setState({
+                            loading:true
+                        })
+                    })
+                }
+            })
+        })
+        
     }
     render(){
         let divList = [],spanList=[];
@@ -98,11 +131,7 @@ class BlogList extends Component {
                 if(this.state.blogList.length === 0){
                     content = <Tips tip={this.state.tip}></Tips>
                 }else{
-                    content =  
-                    <BlogFrom 
-                            blogList={this.state.blogList}
-                            handleRefresh={this.handleRefresh.bind(this)}
-                    ></BlogFrom>;       
+                    content = <BlogFrom  blogList={this.state.blogList}></BlogFrom>;       
                 }
             }else{
                 content = <Loading loadMsg={this.state.loadMsg}></Loading>
@@ -118,9 +147,14 @@ class BlogList extends Component {
                 </div>
                 <div className="blog-list">
                     {header}
-                    <div className="blog-item-container">
-                        {content}
-                    </div>
+                    <IscrollLuo
+                        onPullDownRefresh={() => this.handleRefresh()}
+                        onPullUpLoadMore={() => this.handleLoading()}
+                    >
+                        <div className="blog-item-container">
+                            {content}
+                        </div>
+                    </IscrollLuo>    
                 </div>
             </div>
         )

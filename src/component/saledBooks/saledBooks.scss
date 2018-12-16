@@ -1,5 +1,6 @@
 @import '../../../static/common/base.scss';
 ul{
+    width: 100%;
     @extend .flex-o;
     @extend .flex-direction-o;
     background-color: #fff;

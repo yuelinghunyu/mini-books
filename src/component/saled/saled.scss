@@ -1,6 +1,7 @@
 @import '../../../static/common/base.scss';
 .saled-container{
     @extend .flex-1;
+    @extend .flex-o;
     overflow: auto;
     background-color: #f4f5f5;
 }

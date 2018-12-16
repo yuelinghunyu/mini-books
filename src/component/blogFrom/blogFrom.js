@@ -1,27 +1,36 @@
 import React,{Component} from 'react';
-import IscrollLuo from 'iscroll-luo';
-import PropTypes from "prop-types";
+import {setBlogBrowers} from "../../server/api";
+import {ERROR_OK,formatDate} from "../../config/utils";
 import "./blogFrom.scss";
-import "./refresh.scss";
 
 class BlogFrom extends Component{
 
     constructor(props){
         super(props);
     }
-    redirectBlog(href){
+    redirectBlog(title,bookType,href){
+        //添加浏览次数;
+        const param = {
+            title:title,
+            blogType:bookType,
+            href:href,
+            times:1
+        }
+        setBlogBrowers(param).then(res=>{
+            if(res.data.code === ERROR_OK){
+                console.log("浏览")
+            }
+        })
         window.location.href = href;
     }
-    onDown() {
-        this.props.handleRefresh()
-    }
-    
-    onUp() {
-      
+    formatDate(time){
+        console.log(time)
+        const date = Date.parse(new Date(time)) || Date.parse(new Date(String(time).replace(/\-/g, "/")))
+        return formatDate(date,'Y-M-D hh:mm:ss')
     }
     render(){
         let liList = this.props.blogList.map((blog,index)=>
-            <li className="li-blog-item" key={index} onClick={this.redirectBlog.bind(this,blog.href)}>
+            <li className="li-blog-item" key={index} onClick={this.redirectBlog.bind(this,blog.title,blog.blogType,blog.href)}>
                 <p>{blog.title}</p>
                 <div className="blog-status">
                     <p>
@@ -36,19 +45,11 @@ class BlogFrom extends Component{
             </li>
         )
         return(
-            <IscrollLuo
-                onPullDownRefresh={() => this.onDown()}
-                onPullUpLoadMore={() => this.onUp()}
-            >
-                <ul className="li-blog-container">
-                    {liList}
-                </ul>
-            </IscrollLuo>
+            <ul className="li-blog-container">
+                {liList}
+            </ul>
+           
         )
     }
-    componentDidMount(){
-     
-    }
-   
 }
 export default BlogFrom;

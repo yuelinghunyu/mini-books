@@ -65,6 +65,21 @@ const getBlogList = (param)=>{
         return Promise.reject(error);
     })
 }
+//博客浏览次数统计
+const setBlogBrowers = (params)=>{
+    let url = baseUrl + '/blog/addOrUpdate';
+    let formData = new FormData()
+    for(let key in params){
+        formData.append(key,params[key])
+    }
+    return axios.post(url,formData,{
+        headers:headers
+    }).then((res)=>{
+        return Promise.resolve(res)
+    }).catch((error)=>{
+        return Promise.reject(error);
+    })
+}
 //小典列表;
 const getBookList = (params)=>{
     let url = baseUrl + '/books/list';
@@ -166,5 +181,6 @@ export {
     getUserInfo,
     setFeedBack,
     setAttention,
-    setPayPrice
+    setPayPrice,
+    setBlogBrowers
 }

@@ -30,7 +30,7 @@ class Operate extends Component{
                 }
             })
         }else{
-            this.tryReadEvent(true)
+            this.tryReadEvent('history')
         }
         
     }
@@ -38,12 +38,16 @@ class Operate extends Component{
         const chapterId = localStorage.getItem("firstChapterId");
         const bookId = this.context.router.route.match.params.id;
         const payed = this.context.router.route.match.params.pay;
-        const path = "/chapter/"+bookId+"/"+chapterId+"/"+payed+"/"+flag;
-        this.setState({
-            historyPath:path
-        })
-        this.context.router.history.replace(path);
-        window.location.reload();
+        const path = "/chapter/"+bookId+"/"+chapterId+"/"+payed+"/"+true;
+        if(flag === 'history'){
+            this.setState({
+                historyPath:path
+            })
+        }
+        if(flag === 'line'){
+            this.context.router.history.replace(path);
+            window.location.reload();
+        }
     }
     renderHistoryChapter(){
         this.context.router.history.replace(this.state.historyPath);
@@ -58,7 +62,7 @@ class Operate extends Component{
         if(this.props.payFlag === "payed"){
             panel1 = <span className="go-on" onClick={this.renderHistoryChapter.bind(this)}>{this.state.readerText}</span>
         }else{
-            panel1 = <span className="try-read" onClick={this.tryReadEvent.bind(this,true)}>试读</span>
+            panel1 = <span className="try-read" onClick={this.tryReadEvent.bind(this,'line')}>试读</span>
             panel2 = <span className="pay-for-price" onClick={this.payPriceEvent.bind(this)}>购买 ￥{this.props.price}</span>
         }
         return(

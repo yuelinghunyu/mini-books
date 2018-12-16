@@ -14,11 +14,10 @@ class Book extends Component{
     redirectBrochure(ev,bookId){
         ev.preventDefault();
         ev.stopPropagation();
-        const id = ev.target.getAttribute("id");
         const flag = ev.target.getAttribute("flag");
-        if(id !== null && flag === null){//跳转页面
+        if(bookId !== null && flag === null){//跳转页面
             console.log("跳转");
-            const path = "/brochure/"+id+"/"+"nopay";
+            const path = "/brochure/"+bookId+"/"+"nopay";
             this.context.router.history.push(path);
         }else{//直接微信支付
             const price = parseFloat(ev.target.textContent.replace("￥",""))

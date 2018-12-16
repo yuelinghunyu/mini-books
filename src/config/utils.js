@@ -64,7 +64,47 @@ const getQueryString = (name)=>{
      var r = window.location.search.substr(1).match(reg);
      if(r!=null)return  unescape(r[2]); return null;
 }
+const formatDate = (date,type) => {
+    if (date != undefined) {
+        //兼容ios
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent) || navigator.userAgent.indexOf("Safari") > -1) {
+            date = String(date).replace(/\-/g, "/")
+        }
+        var time = '';
+        if (date.indexOf('-') != -1 || date.indexOf('/') != -1) {
+            time = new Date(date)
+        } else {
+            time = new Date(JSON.parse(date))
+        }
+        var year = time.getFullYear();
+        var month = time.getMonth() + 1;
+        var date = time.getDate();
+        var hours = time.getHours();
+        var minutes = time.getMinutes();
+        var seconds = time.getSeconds();
+        var isTime = '';
 
+        function add0(m) { return m < 10 ? '0' + m : m }
+        switch (type) {
+            case 'Y-M-D hh:mm:ss':
+                isTime = year + '-' + add0(month) + '-' + add0(date) + ' ' + add0(hours) + ':' + add0(minutes) + ':' + add0(seconds);
+                break;
+            case 'M-D hh:mm:ss':
+                isTime = add0(month) + '-' + add0(date) + ' ' + add0(hours) + ':' + add0(minutes) + ':' + add0(seconds);
+                break;
+            case 'M-D hh:mm':
+                isTime = add0(month) + '-' + add0(date) + ' ' + add0(hours) + ':' + add0(minutes);
+                break;
+            case 'hh:mm:ss':
+                isTime = add0(hours) + ':' + add0(minutes) + ':' + add0(seconds);
+                break;
+            case 'hh:mm':
+                isTime = add0(hours) + ':' + add0(minutes);
+                break;
+        }
+        return isTime;
+    }
+  }
 export {
     guid,
     ERROR_OK,
@@ -72,5 +112,6 @@ export {
     add,
     throttle,
     indexOf,
-    getQueryString
+    getQueryString,
+    formatDate
 }
