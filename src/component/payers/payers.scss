@@ -9,6 +9,7 @@
     background-color: #fff;
     padding: 0.2rem 0.533rem;
     .payers-count{
+        min-width: 5rem;
         @extend .flex-o;
         @extend .flex-direction-r;
         @extend .align-items-c;

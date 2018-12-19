@@ -130,20 +130,26 @@ class Content extends Component{
                                     })
                                 })
                             }
-                            let list = bookTypeList.data.data.list;
-                            const all = {
-                                id:'all',
-                                typeId:0,
-                                typeTitle:'全部'
-                            }
-                            list.unshift(all);
-                            this.setState({
-                                bookTypeList:list,
-                            },()=>{
+                            if(bookTypeList.data.data.length>0){
+                                let list = bookTypeList.data.data.list;
+                                const all = {
+                                    id:'all',
+                                    typeId:0,
+                                    typeTitle:'全部'
+                                }
+                                list.unshift(all);
+                                this.setState({
+                                    bookTypeList:list,
+                                },()=>{
+                                    this.setState({
+                                        loading:false
+                                    })
+                                })
+                            }else{
                                 this.setState({
                                     loading:false
                                 })
-                            })
+                            }
                         }
                     })
                 )

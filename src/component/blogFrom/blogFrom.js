@@ -8,9 +8,10 @@ class BlogFrom extends Component{
     constructor(props){
         super(props);
     }
-    redirectBlog(title,bookType,href){
+    redirectBlog(id,title,bookType,href){
         //添加浏览次数;
         const param = {
+            id:id,
             title:title,
             blogType:bookType,
             href:href,
@@ -30,7 +31,7 @@ class BlogFrom extends Component{
     }
     render(){
         let liList = this.props.blogList.map((blog,index)=>
-            <li className="li-blog-item" key={index} onClick={this.redirectBlog.bind(this,blog.title,blog.blogType,blog.href)}>
+            <li className="li-blog-item" key={index} onClick={this.redirectBlog.bind(this,blog.id,blog.title,blog.blogType,blog.href)}>
                 <p>{blog.title}</p>
                 <div className="blog-status">
                     <p>

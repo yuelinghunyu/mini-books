@@ -11,6 +11,7 @@ module.exports = merge(baseConfig,{
     output:{
         filename:"static/js/[name].[chunkhash].js",
         chunkFilename:'static/js/[name].[chunkhash].js',
+        publicPath:'/msoBook/'
     },
     module:{
         rules:[

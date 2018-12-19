@@ -112,7 +112,7 @@ class BlogList extends Component {
         let swiper = null;
         let header = null;
         let content = null;
-        if(this.state.bannerList.length > 0 && this.state.bookTypeList.length > 0){
+        if(this.state.bannerList.length > 0){
             this.state.bannerList.map((item,index)=>{
                 divList.push(<div className="blog-scroll" key={item.id}>
                 <img src={item.href} alt="logo"/>
@@ -122,6 +122,10 @@ class BlogList extends Component {
             swiper = <ReactSwipe ref={reactSwipe => this.reactSwipe = reactSwipe} className="carousel" swipeOptions={this.state.option}>
                         {divList}
                     </ReactSwipe>
+            
+           
+        }
+        if(this.state.bookTypeList.length > 0){
             header =  <Header 
                             bookTypeList={this.state.bookTypeList}
                             handleSetBookType = { this.handleSetBookType.bind(this)}
@@ -136,9 +140,7 @@ class BlogList extends Component {
             }else{
                 content = <Loading loadMsg={this.state.loadMsg}></Loading>
             }
-           
         }
-       
         return(
             <div className="blog-list-container">
                 <div className="blog-swiper">
@@ -174,22 +176,32 @@ class BlogList extends Component {
                 }
                 getBookTypeList(param).then(res=>{
                     if(bannerList.data.code === ERROR_OK && res.data.code === ERROR_OK && blogList.data.code === ERROR_OK){
-                        let list = res.data.data.list;
-                        const all = {
-                            id:'all',
-                            typeId:0,
-                            typeTitle:'全部'
-                        }
-                        list.unshift(all);
-                        this.setState({
-                            bannerList:bannerList.data.data.list,
-                            bookTypeList:list,
-                            blogList:blogList.data.data.list
-                        },()=>{
+                        if(res.data.data.list.length > 0){
+                            let list = res.data.data.list;
+                            const all = {
+                                id:'all',
+                                typeId:0,
+                                typeTitle:'全部'
+                            }
+                            list.unshift(all);
                             this.setState({
-                                loading:true
+                                bookTypeList:list
                             })
-                        })
+                        }
+                       if(bannerList.data.data.list.length>0){
+                            this.setState({
+                                bannerList:bannerList.data.data.list
+                            })
+                       }
+                       if(blogList.data.data.list.length>0){
+                            this.setState({
+                                blogList:blogList.data.data.list
+                            },()=>{
+                                this.setState({
+                                    loading:true
+                                })
+                            })
+                       }
                     }
                 })
             })
